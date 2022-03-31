@@ -1,0 +1,20 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int[] arrayReturn = new int[2];
+        
+        for(int i=0; i < nums.length; i++){
+            for(int j = i + 1; j < nums.length; j++) {
+                // System.out.println(nums[i] + nums[j] == target);
+                if(nums[i] + nums[j] == target){
+                    System.out.println(nums[i] + nums[j] == target);
+                    arrayReturn[0] = i;
+                    arrayReturn[1] = j;
+                    return arrayReturn;
+                }
+            }
+        }
+         return arrayReturn;
+    }
+}
+//runtime:59 ms
+//memory:39.1 MB

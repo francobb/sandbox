@@ -1,0 +1,16 @@
+function twoSum(nums: number[], target: number): number[] {
+        if (nums.length < 1) {
+        return [];
+    }
+    let map = new Map();
+
+    for (let [index, num] of nums.entries()){
+        if (map.has(num)) return [map.get(num), index];
+        let missingVal = target-num
+        map.set(missingVal, index);
+    }
+
+    return []
+};
+//runtime:120 ms
+//memory:39.4 MB
