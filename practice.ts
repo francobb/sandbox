@@ -1,4 +1,3 @@
-
 /**
  * [ARRAY]
  *
@@ -87,11 +86,10 @@
    **/
   {
     ((nums: number[]): number[][] => {
-
       nums.sort((a,b) => a - b);
       let finalArr = [];
       for (let i = 0; i < nums.length; i++) {
-        if (i>0 && nums[i] == nums[i -1])continue
+        if (i > 0 && nums[i] == nums[i -1]) continue
         let leftP = i+1, rightP = nums.length-1;
         let target = 0 - nums[i];
 
@@ -111,7 +109,6 @@
           }
 
         }
-
       }
 
       return finalArr;
@@ -119,7 +116,34 @@
 
   }
 
+  /**
+   * Array Chunking
+   *
+   * *****/
+  {
+    (function(arr: number[], size: number) {
+    let finalArr = []
+    // version one
+    for (const num in arr) {
+      let last = finalArr[finalArr.length -1]
+      if(!last || last.length === size){
+        finalArr.push([num])
+      } else {
+        last.push(num);
+      }
+    }
+    return finalArr
 
+    // version two
+    let count = 0;
+    while (count < arr.length) {
+      finalArr.push(arr.slice(count, count + size));
+      count+=size;
+    }
+    console.log({ finalArr });
+    return finalArr
+  })([1,2,3,4,5], 3)
+  }
 }
 //------------------------------------------------
 
@@ -150,11 +174,14 @@
         }
       }
       return count;
-    })("abcabcbb");
+    })
+    ("abcabcbb");
+    // ("dvdf")
+    // ("abba")
   }
 
   /**
-   * String compare ✅
+   * [844] backspace string compare ✅
    *
    * *****/
   {
@@ -181,6 +208,210 @@
       }
       return newS !== newL;
     })("a#c", "b");
+  }
+
+  /**
+   * [344] String reverse ✅
+   *
+   * *****/
+  {
+    (function(str: string) {
+      // version one
+      let reversed = '';
+      for (let char of str) {
+        reversed = char + reversed
+        console.info({ reversed });
+      }
+
+      // version two
+      str.split("").reduce((rev, char) => char + rev, '')
+
+      // version three
+      return str.split('').reverse().join('');
+    })("reverse")
+  }
+
+  /**
+   * Roman Integer ✅
+   *
+   * *****/
+  {
+    let rmMap = new Map<string, number>();
+    rmMap.set("I", 1)
+    rmMap.set("V", 5)
+    rmMap.set("X", 10)
+    rmMap.set("L", 50)
+    rmMap.set("C", 100)
+    rmMap.set("D", 500)
+    rmMap.set("M", 1000)
+
+    let minusOne = ["V", "X"];
+    let minusTen = ["L", "C"];
+    let minusHundo = ["D", "M"];
+    (function roman_to_int(s: string): number {
+      if (s.length > 15) return 0;
+
+      // create map of conversion
+
+      let finalNum = 0;
+
+      // break string input into array to iterate over
+      const sArr = Array.from(String(s));
+      // Or
+      const sArr1 = [...s.split("")];
+
+      for (let i = 0; i < sArr.length; i++) {
+        let rn = sArr[i];
+        let nextNumeral = sArr[i + 1];
+
+        if (rn === "I" && minusOne.includes(nextNumeral)) {
+          finalNum += -1;
+          finalNum += rmMap.get(nextNumeral)!;
+          i++
+        } else if (rn === "X" && minusTen.includes(nextNumeral)) {
+          finalNum += -10;
+          finalNum += rmMap.get(nextNumeral)!;
+          i++
+        } else if (rn === "C" && minusHundo.includes(nextNumeral)) {
+          finalNum += -100;
+          finalNum += rmMap.get(nextNumeral)!;
+          i++
+        } else {
+          finalNum += rmMap.get(rn)!
+        }
+      }
+
+      return finalNum;
+    })("MCMXCIV")
+  }
+
+  /**
+   * [242] Valid Anagram ✅
+   *
+   * *****/
+  {
+    ((s: string, t: string): boolean => {
+
+      // sort each str
+      let sS = s.replace("/[^\w]/g", "").split('').sort().join("").toLowerCase();
+      let tS = t.replace("/[^\w]/g", "").split("").sort().join("").toLowerCase();
+
+      if (tS.length != sS.length) {
+        console.assert(sS.length == tS.length, "They do Not equal ");
+        return false
+      }
+
+      if (tS.indexOf(sS) != 0) {
+        console.assert(tS.indexOf(sS), "letter don't equal");
+        return false
+      }
+
+      console.log({ sS, tS });
+
+      return true
+    })("anagram", "car");
+
+
+    ((s: string, t: string): boolean => {
+
+      if (!s || !t) return false
+      return [...s].sort().join("").replace("/[^\w]/g", "").toLowerCase() === [...t].sort().join("").replace("/[^\w]/g", "").toLowerCase()
+
+    })("anagram", "nagaram")
+
+  }
+
+  /**
+   *
+   * [09] Palindrome number
+   *
+   **/
+  {
+    (function is_palindrome(x: number): boolean {
+      // turn number into array
+      let xS1 = "" + x;
+      let arr = [...xS1.split("")];
+      let xS2 = Array.from(String(x));
+      let xN2 = Array.from(String(x), Number);
+
+
+      // let numArr = [...x];
+      // if (x < 2) return false;
+      let [lp, rp] = [0, arr.length - 1];
+      while (lp <= rp) {
+        if (arr[lp] != arr[rp]) return false;
+        lp++;
+        rp--;
+      }
+
+      return true;
+    })(151)
+  }
+
+  /**
+   *
+   * [58] Length of last word
+   *
+   **/
+  {
+    (function lengthOfLastWord(s: string): number {
+      let arr = s.split(" ").filter(v => v);
+      let l = arr[arr.length - 1].length;
+      return l;
+    })(" fly me to the moon ")
+
+  }
+
+  /**
+   *
+   *  Valid Palindrome string
+   *
+   **/
+  {
+    (function is_palindrome1(str: string): boolean {
+      // turn number into array
+      return str.split("").every((c, i) => {
+        return c === str.charAt(str.length - i - 1);
+      })
+    })("abba");
+
+    (function is_palindrome2(str: string): boolean {
+      // turn number into array
+      let rStr = str.split("").reverse().join("");
+      return str === rStr;
+    })("abba");
+
+
+  }
+
+  /**
+   * Reverse int
+   */
+  {
+    (function(n: number) {
+      let p = n.toString().split('').reverse().join('');
+      return parseInt(p) * Math.sign(n);
+    })(-51)
+  }
+
+  /**
+   * FizzBuzz
+   */
+  {
+    (void function fizzBuzz(n: number) {
+
+      let count = 1;
+      while (count <= n) {
+        let fizz = count % 3 == 0 ? "fizz" : "";
+        let buzz = count % 5 == 0 ? "buzz" : "";
+        console.log(`${count} :::: ${fizz}${buzz}`);
+
+        count++;
+      }
+
+    }(20))
+    // fizzBuzz(5)
+    // fizzBuzz(5)}
   }
 }
 //------------------------------------------------
@@ -282,8 +513,7 @@
        In-Order                 Pre-Order                Post-Order
         [2] 1                   [1]  1                    [3] 1
     
-      [1]3    4 [3]          [2] 3      4 [3          [1] 3      4 [2]
-  
+      [1]3   4 [3]          [2] 3     4 [3          [1] 3     4 [2]
   */
   
   {
@@ -369,7 +599,6 @@
         if (!root) return [];
         let result: number[][] = [];
         let queue = [root];
-
         while (queue.length) {
           const length = queue.length;
           let count = 0;
@@ -635,7 +864,7 @@
 
       return -1;
     };
-    function realBinary(nums: number[], target: number) {
+    function firstAndLastPositionOfTarget(nums: number[], target: number) {
       if (nums.length === 0) return [-1, -1];
       const first_position = binSearch(nums, 0, nums.length - 1, target);
       if (first_position === -1) return [-1, -1];
@@ -700,7 +929,7 @@
     // console.log(otherBinary([5,7,7,8,8,10], 8));
     // console.log(otherBinary([1], 1));
     // console.log(realBinary([1], 1));
-    console.log(realBinary([1, 3, 5, 5, 5, 5, 8, 9], 5));
+    console.log(firstAndLastPositionOfTarget([1, 3, 5, 5, 5, 5, 8, 9], 5));
   }
 
 }
@@ -824,7 +1053,13 @@
       return arr[indexToFind];
     })([5, 2, 3, 1, 2, 4, 5, 6, 3], 4);
 
-    function partition(items, left, right) {
+    const swap = (array: number[], j: number, i: number) => {
+      const temp = array[j];
+      array[j] = array[i];
+      array[i] = temp;
+    };
+
+    const partition = (items, left, right) => {
       let pivot = items[Math.floor((right + left) / 2)], //middle element
         i = left, //left pointer
         j = right; //right pointer
@@ -842,19 +1077,15 @@
         }
       }
       return i;
-    }
-    function swap(array: number[], j: number, i: number) {
-      const temp = array[j];
-      array[j] = array[i];
-      array[i] = temp;
-    }
-    function quickSort(array: number[], left: number, right: number) {
+    };
+
+    const quickSort = (array: number[], left: number, right: number) => {
       if (left < right) {
         const partitionIndex = partition(array, left, right);
         quickSort(array, left, partitionIndex - 1);
         quickSort(array, partitionIndex + 1, right);
       }
-    }
+    };
     const quickSelect = function (
       array: number[],
       left: number,
@@ -884,9 +1115,9 @@
 {
 // @ts-ignore
 // const linkedList: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc), null);
-  const linkedList: ListNode = [4,3,2,0,0,0].reduce((acc, val) => new ListNode(val, acc), null);
+  const linkedList: any = [4,3,2,0,0,0].reduce((acc, val) => new ListNode(val, acc), null);
 // const l2: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
-  const l2: ListNode = [6,5,4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
+  const l2: any = [6,5,4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
 // @ts-ignore
   const flattenLinkedList = (head: Node1 | null): Node1 | null => {
     if (!head) return head;
@@ -957,11 +1188,12 @@
  *
  * */
   {
+    // @ts-ignore
     function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
       let p1=l1,p2=l2;
       let carryOver = 0;
 
-      while(p1||p2){
+      while(p1||p2) {
         let val=0;
         let val2=0;
 
@@ -979,7 +1211,7 @@
         //   carryOver = 1;
         // } else {carryOver = 0}
         let n = new String("pAEBle")
-        n.substr(0, 3)
+        n.substring(0, 3)
         carryOver = Math.floor(sum/10)
         let digit = sum % 10;
 

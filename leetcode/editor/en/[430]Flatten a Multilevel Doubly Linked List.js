@@ -1,3 +1,4 @@
+"use strict";
 //You are given a doubly linked list which in addition to the next and previous
 //pointers, it could have a child pointer, which may or may not point to a separat
 //e doubly linked list. These child lists may have one or more children of their o
@@ -91,22 +92,7 @@
 //
 // Related Topics Linked List Depth-First Search Doubly-Linked List
 // 👍 2552 👎 200
-//leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for node.
- * class Node {
- *     val: number
- *     prev: Node | null
- *     next: Node | null
- *     child: Node | null
- *     constructor(val?: number, prev? : Node, next? : Node, child? : Node) {
- *         this.val = (val===undefined ? 0 : val);
- *         this.prev = (prev===undefined ? null : prev);
- *         this.next = (next===undefined ? null : next);
- *         this.child = (child===undefined ? null : child);
- *     }
- * }
- */
+Object.defineProperty(exports, "__esModule", { value: true });
 function flatten(head) {
     if (!head)
         return head;
@@ -126,8 +112,6 @@ function flatten(head) {
             }
             //make the next node after tail
             tail.next = currentNode.next;
-            155933;
-            CougheeP;
             if (tail.next != null) {
                 tail.next.prev = tail;
             }

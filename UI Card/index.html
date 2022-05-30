@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Card</title>
+    <link rel="stylesheet" href="style.css">
+<!--    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>-->
+<!--    <script src="https://kit.fontawesome.com/a6ca5d4e18.js" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="feedbackcard">
+            <div class="emoji">
+                <div id="emoji">
+                    <img src="images/poor.png">
+                    <img src="images/bad.png" alt="">
+                    <img src="images/okay.png">
+                    <img src="images/good.png">
+                    <img src="images/excellent.png">
+                </div>
+            </div>
+            <div class="rating">
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let transformMap = {
+            "0": 0,
+            "1": "-100px",
+            "2": "-200px",
+            "3": "-300px",
+            "4": "-400px",
+        }
+        let stars = document.getElementsByClassName("fa");
+        let emoji = document.getElementById("emoji");
+        let grey = 'rgb(228, 228, 228)'
+        let t = stars.length-1;
+
+
+        for (let i = 0; i < stars.length; i++) {
+            let star = stars[i];
+            star.onclick = () => {
+                const styles = window.getComputedStyle(star);
+                console.log("Index:::" + i);
+                // star.style.color = "#ffd93b";
+                if (window.getComputedStyle(star).getPropertyValue('color') === grey) {
+                    let count = i+1;
+                    while(count) {
+                        count--;
+                        stars[count].style.color = "#ffd93b"
+                    }
+                    console.log(transformMap[i].toString());
+                    emoji.style.transform = `translateX(${transformMap[i]})`
+                }
+                else {
+                    console.log(t-i);
+                    let count = t-i;
+                    if (t-i === 0||1 ) stars[t].style.color = "rgb(228, 228, 228)"
+                    // while(stars.length-1 > i){
+                    while(count > 0){
+                        console.log("we must remove " + count);
+                        stars[stars.length-count-1].style.color = "rgb(228, 228, 228)";
+                        count--
+                    }
+                    emoji.style.transform = `translateX(${transformMap[i]})`
+
+                }
+            }
+        }
+
+
+    });
+
+</script>
+</html>

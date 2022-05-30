@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var reverse_Linked_List_1 = require("./reverse_Linked_List");
 function reverseBetween1(head, left, right) {
     var currentPosition = 1;
     var currentNode = head;
@@ -25,17 +28,17 @@ function reverseBetween1(head, left, right) {
         return newList;
     }
 }
-// let node11 = new ListNode1(1);
-// let node22 = new ListNode1(2);
-// let node33 = new ListNode1(3);
-// let node44 = new ListNode1(4);
-// let node55 = new ListNode1(5);
+var node11 = new reverse_Linked_List_1.ListNode1(1);
+var node22 = new reverse_Linked_List_1.ListNode1(2);
+var node33 = new reverse_Linked_List_1.ListNode1(3);
+var node44 = new reverse_Linked_List_1.ListNode1(4);
+var node55 = new reverse_Linked_List_1.ListNode1(5);
 node11.next = node22;
 node22.next = node33;
 node33.next = node44;
 node44.next = node55;
 node55.next = null;
-console.log(reverseBetween(node11, 2, 4));
+console.log(reverseBetween1(node11, 2, 4));
 function newFunc(head, left, right) {
     var currentPosition = 1;
     var currentNode = head;

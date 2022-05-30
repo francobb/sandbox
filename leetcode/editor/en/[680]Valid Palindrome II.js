@@ -37,14 +37,26 @@
 function validPalindrome(s) {
     var start = 0;
     var end = s.length - 1;
-    while (start < end) {
-        if (s[start] !== s[end]) {
-            return (validSubPalindrome(s, start + 1, end) ||
-                validSubPalindrome(s, start, end - 1));
+    var recursive = function (s, left, right) {
+        while (left < right) {
+            if (s[left] !== s[right]) {
+                return (recursive(s, left + 1, right) ||
+                    recursive(s, left, end - 1));
+            }
         }
-        start++;
-        end--;
-    }
+        return true;
+    };
+    recursive(s, start, end);
+    // while (start < end) {
+    //   if (s[start] !== s[end]) {
+    //     return (
+    //       validSubPalindrome(s, start + 1, end) ||
+    //       validSubPalindrome(s, start, end - 1)
+    //     );
+    //   }
+    //   start++;
+    //   end--;
+    // }
     return true;
 }
 var validSubPalindrome = function (s, left, right) {

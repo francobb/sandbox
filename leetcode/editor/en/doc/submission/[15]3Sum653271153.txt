@@ -1,0 +1,45 @@
+function threeSum(nums: number[]): number[][] {
+  if (nums.length < 3) return [];
+  let [finalArray, leftP, rightP] = [[], 0, nums.length-1];
+  nums.sort((a,b)=> a - b);
+
+  let isCheckValid = leftP < rightP;
+  nums.forEach((num, idx) =>{
+    console.log({num, idx})
+    if (num === nums[idx-1]) return;
+    if (num > 0) return finalArray;
+
+    leftP = idx+1;
+    rightP = nums.length-1
+    let temp = 0;
+
+    while (leftP < rightP){
+      temp = num + nums[leftP] + nums[rightP];
+
+      if (temp > 0){
+        rightP--;
+      }
+      if (temp < 0){
+        leftP++;
+      }
+      if (temp === 0) {
+        finalArray.push([nums[idx], nums[leftP], nums[rightP]]);
+        rightP--;
+        leftP++;
+        while(leftP < rightP && nums[leftP] == nums[leftP-1] ){
+          leftP++
+        }
+        while (isCheckValid && nums[rightP] == nums[rightP+1]){
+          rightP--
+        }
+      }
+
+    }
+  });
+
+
+  return finalArray
+};
+
+//runtime:400 ms
+//memory:64.1 MB

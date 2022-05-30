@@ -108,6 +108,8 @@
  *     }
  * }
  */
+import {Node} from "./index";
+
 function flatten(head: Node | null): Node | null {
   if (!head) return head;
   let currentNode = head;

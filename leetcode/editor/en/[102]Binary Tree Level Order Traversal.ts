@@ -32,6 +32,8 @@
 //<div><div>Related Topics</div><div><li>Tree</li><li>Breadth-First Search</li><li>Binary Tree</li></div></div><br><div><li>👍 6343</li><li>👎 127</li></div>
 
 //leetcode submit region begin(Prohibit modification and deletion)
+import { TreeNode } from "./index";
+
 /**
  * Definition for a binary tree node.
  * class TreeNode {

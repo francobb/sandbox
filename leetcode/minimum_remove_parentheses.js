@@ -21,8 +21,25 @@ function minRemoveToMakeValid1(s) {
 ;
 console.log(minRemoveToMakeValid1("lee(t(c)o)de)"));
 var minRemoveToMakeValid2 = function (s) {
-    var res = s.split("");
     var stack = [];
+    var arr = s.split("");
+    for (var currentIndex = 0; currentIndex < s.length; currentIndex++) {
+        if (s[currentIndex] === '(') {
+            stack.push(currentIndex);
+        }
+        if (s[currentIndex] === ')' && stack.length > 0) {
+            stack.pop();
+        }
+        else {
+            arr[currentIndex] = "";
+        }
+    }
+    while (stack.length) {
+        arr[stack.pop()] = "";
+    }
+    return arr.join("");
+    var res = s.split("");
+    // const stack = [];
     for (var i = 0; i < res.length; i++) {
         if (res[i] === '(') {
             stack.push(i);
@@ -41,3 +58,11 @@ var minRemoveToMakeValid2 = function (s) {
     return stack.join("");
 };
 console.log(minRemoveToMakeValid2("lee(t(c)o)de)"));
+// loop through string
+// if i find a open parentheses
+// save location to array
+// if i find a closed parentheses
+// check if array has value
+// pop matching parenthesis
+// remove from string if any don't match
+// if there are any extra open parenthesis set them to empty

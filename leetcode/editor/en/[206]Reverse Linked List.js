@@ -1,3 +1,22 @@
+"use strict";
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ListNode = void 0;
 //Given the head of a singly linked list, reverse the list, and return the rever
 //sed list.
 //
@@ -55,6 +74,7 @@ var ListNode = /** @class */ (function () {
     }
     return ListNode;
 }());
+exports.ListNode = ListNode;
 function reverseList(head) {
     var prev = null; // What we checked
     var current = head; // We are checking this
@@ -66,17 +86,14 @@ function reverseList(head) {
         current = tempNext; // Set "current" to be current's old next node for the next loop.
     }
     return prev; // Return what we checked
-    /*
-      let [curr, prev]: [ListNode | null, ListNode | null] = [head, null];
-      while (curr) [curr.next, prev, curr] = [prev, curr, curr.next];
-      return prev;
-     */
 }
-var node1 = new ListNode(1);
-var node2 = new ListNode(2);
-var node3 = new ListNode(3);
-var node4 = new ListNode(4);
-var node5 = new ListNode(5);
+var _a = __read([
+    new ListNode(1),
+    new ListNode(2),
+    new ListNode(3),
+    new ListNode(4),
+    new ListNode(5),
+], 5), node1 = _a[0], node2 = _a[1], node3 = _a[2], node4 = _a[3], node5 = _a[4];
 node1.next = node2;
 node2.next = node3;
 node3.next = node4;

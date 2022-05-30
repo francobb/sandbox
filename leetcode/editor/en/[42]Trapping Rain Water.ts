@@ -55,7 +55,6 @@ function trap(height: number[]): number {
       rightP--;
     }
   }
-
   return totalH20;
 }
 //leetcode submit region end(Prohibit modification and deletion)

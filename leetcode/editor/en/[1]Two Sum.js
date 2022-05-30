@@ -45,7 +45,17 @@
 // 👍 21580 👎 739
 //leetcode submit region begin(Prohibit modification and deletion)
 function twoSum(nums, target) {
-    return [];
+    var map = new Map();
+    for (var index = 0; index < nums.length; index++) {
+        var current = nums[index];
+        var diff = target - nums[index];
+        if (map.has(diff)) {
+            return [map.get(diff), index];
+        }
+        else {
+            map.set(current, index);
+        }
+    }
 }
 ;
 //leetcode submit region end(Prohibit modification and deletion)

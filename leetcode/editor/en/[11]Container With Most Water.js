@@ -55,8 +55,8 @@ function maxArea(height) {
     // find two highest values in array
     while (p1 < p2) {
         // max area is min of two highest times difference of indices
-        var xPos = Math.min(height[p1], height[p2]);
-        var yPos = p2 - p1;
+        var yPos = Math.min(height[p1], height[p2]);
+        var xPos = p2 - p1;
         var currentArea = xPos * yPos;
         maximumArea = Math.max(maximumArea, currentArea);
         if (height[p1] <= height[p2]) {

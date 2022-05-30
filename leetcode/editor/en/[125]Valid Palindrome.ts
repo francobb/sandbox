@@ -34,7 +34,7 @@ function isPalindrome(s: string): boolean {
     return false;
   }
 
-  s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+  s = s.replace(/[^A-Za-z\d]/g, "").toLowerCase();
   let right = s.length - 1;
   let left = 0;
 
@@ -42,13 +42,11 @@ function isPalindrome(s: string): boolean {
     if (s[left] !== s[right]) {
       return false;
     }
-
     right--;
     left++;
   }
   return true;
 }
-
-// console.log(isPalindrome("A man, a plan, a canal: Panama"));
-// console.log(isPalindrome("A man, a plan, ab canal: Panama"));
 //leetcode submit region end(Prohibit modification and deletion)
+console.log(isPalindrome("A man, a plan, a canal: Panama"));
+export {}

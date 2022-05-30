@@ -60,3 +60,6 @@ function lengthOfLongestSubstring(s) {
     return longestSubString;
 }
 //leetcode submit region end(Prohibit modification and deletion)
+lengthOfLongestSubstring("abcabcbb");
+lengthOfLongestSubstring("dvdf");
+lengthOfLongestSubstring("abba");

@@ -1,4 +1,4 @@
-import {TreeNode } from "../pract";
+import {TreeNode } from "../index";
 /**
  * Definition for a binary tree node.
  * class TreeNode {

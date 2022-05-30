@@ -52,29 +52,27 @@
 function backspaceCompare(s, t) {
     var pointerS = s.length - 1, pointerT = t.length - 1;
     while (pointerS >= 0 || pointerT >= 0) {
-        if (s[pointerS] === "#" || t[pointerT] === "#") {
-            if (t[pointerT] === "#") {
-                var stepsT = 2;
-                while (stepsT > 0) {
-                    pointerT--;
-                    stepsT--;
-                    if (t[pointerT] === "#") {
-                        stepsT += 2;
-                        // pointerT--;
-                        // stepsT--;
-                    }
+        if (t[pointerT] === "#") {
+            var stepsT = 2;
+            while (stepsT > 0) {
+                pointerT--;
+                stepsT--;
+                if (t[pointerT] === "#") {
+                    stepsT += 2;
+                    // pointerT--;
+                    // stepsT--;
                 }
             }
-            if (s[pointerS] === "#") {
-                var stepsS = 2;
-                while (stepsS > 0) {
-                    pointerS--;
-                    stepsS--;
-                    if (s[pointerS] === "#") {
-                        stepsS += 2;
-                        // pointerS--;
-                        // stepsS--;
-                    }
+        }
+        if (s[pointerS] === "#") {
+            var stepsS = 2;
+            while (stepsS > 0) {
+                pointerS--;
+                stepsS--;
+                if (s[pointerS] === "#") {
+                    stepsS += 2;
+                    // pointerS--;
+                    // stepsS--;
                 }
             }
         }
