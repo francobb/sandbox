@@ -7,8 +7,9 @@
 // Example 2: 
 // Input: a = "1010", b = "1011"
 //Output: "10101"
-// 
-// 
+// 1011
+// 1010
+//  10101
 // Constraints: 
 //
 // 
@@ -21,9 +22,28 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function addBinary(a: string, b: string): string {
-  let carryOver = 0;
-  let result = Array(Math.max(a.length, b.length)).fill(0)
+  let carry = 0;
+  let aIndex = a.length - 1;
+  let bIndex = b.length - 1;
+  let result = "";
 
-  return ""
+  while (aIndex >= 0 || bIndex >= 0) {
+    let ai = (aIndex >= 0 && a[aIndex] == "1") ? 1 : 0;
+    let bi = (bIndex >= 0 && b[bIndex] == "1") ? 1 : 0;
+
+    let sum = ai + bi + carry;
+    carry = sum > 1 ? 1 : 0;
+    let ci = sum % 2;
+
+    result = ci.toString() + result;
+
+    aIndex--;
+    bIndex--;
+  }
+
+  if (carry > 0) {
+    result = carry.toString() + result;
+  }
+  return result;
 };
 //leetcode submit region end(Prohibit modification and deletion)

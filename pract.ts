@@ -17,28 +17,27 @@
 // )
 
 
-// todo: FINISH THIS!!!!
-// console.log(
-// (function addBinary(a: string, b: string): string {
-//   let addBinaryManual = (A, B) => {
-//     let sum = '';
-//     let i = A.length -1;
-//     let j = B.length -1;
-//     while(i >= 0 || j >= 0) {
-//       let a = A[i];
-//       let b = B[i];
-//       i--
-//       j--
-//     }
-//     return sum
-//   }
-//
-//   let max = Math.max()
-//
-// })("11", "1")
-// )
-
+import { simpleNode, SimpleNode } from "./leetcode/editor/en";
 
 console.log(
+  (function ()  {
 
+  })()
 )
+
+// NEED EXPLANATION
+// console.log(
+//   (function excel_sheet_column(columnNumber: number): string {
+//     let excelColumn = '';
+//     let charCode;
+//
+//     while (columnNumber > 0) {
+//       charCode = (columnNumber - 1) % 26;
+//       excelColumn = String.fromCharCode(65 + charCode) + excelColumn;
+//       columnNumber = (columnNumber - charCode) / 26 | 0;
+//     }
+//     return excelColumn;
+//   })(500)
+//   // })(28)
+//   // })(26)
+// )

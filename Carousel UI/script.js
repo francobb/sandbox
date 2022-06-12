@@ -10,24 +10,18 @@ rightBtn.addEventListener("click", function (){
     changeImage()
     resetInterval();
 })
-
 leftBtn.addEventListener("click", function () {
     idx--;
     changeImage();
     resetInterval();
 })
 
-
-
-
 let interval = setTimeout(run, 2000);
-
 function run() {
     idx++;
     changeImage();
     // resetInterval();
 }
-
 function changeImage() {
     if (idx > img.length - 1) {
         idx = 0;
@@ -37,8 +31,6 @@ function changeImage() {
 
     imgs.style.transform = `translateX(${-idx * 500}px)`
 }
-
-
 function resetInterval(){
     clearInterval(interval);
     interval = setInterval(run, 2000);

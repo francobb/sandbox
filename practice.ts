@@ -1,3 +1,5 @@
+import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
+
 /**
  * [ARRAY]
  *
@@ -264,15 +266,15 @@
         let rn = sArr[i];
         let nextNumeral = sArr[i + 1];
 
-        if (rn === "I" && minusOne.includes(nextNumeral)) {
+        if (rn === "I" && minusOne.indexOf(nextNumeral)) {
           finalNum += -1;
           finalNum += rmMap.get(nextNumeral)!;
           i++
-        } else if (rn === "X" && minusTen.includes(nextNumeral)) {
+        } else if (rn === "X" && minusTen.indexOf(nextNumeral)) {
           finalNum += -10;
           finalNum += rmMap.get(nextNumeral)!;
           i++
-        } else if (rn === "C" && minusHundo.includes(nextNumeral)) {
+        } else if (rn === "C" && minusHundo.indexOf(nextNumeral)) {
           finalNum += -100;
           finalNum += rmMap.get(nextNumeral)!;
           i++
@@ -302,7 +304,7 @@
       }
 
       if (tS.indexOf(sS) != 0) {
-        console.assert(tS.indexOf(sS), "letter don't equal");
+        console.assert(tS.indexOf(sS) !== 0, "letter don't equal");
         return false
       }
 
@@ -466,35 +468,6 @@
  *
  **/
 {
-  class TreeNode {
-    val: number;
-    left: TreeNode | null;
-    right: TreeNode | null;
-    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-      this.val = val === undefined ? 0 : val;
-      this.left = left === undefined ? null : left;
-      this.right = right === undefined ? null : right;
-    }
-    insert(values) {
-      const queue = [this];
-      let i = 0;
-      while (queue.length > 0) {
-        let current = queue.shift();
-        for (let side of ["left", "right"]) {
-          if (!current[side]) {
-            if (values[i] !== null) {
-              current[side] = new TreeNode(values[i]);
-            }
-            i++;
-            if (i >= values.length) return this;
-          }
-          if (current[side]) queue.push(current[side]);
-        }
-      }
-      return this;
-    }
-
-  }
   let rootNode = new TreeNode(
     3,
     new TreeNode(20, new TreeNode(15), new TreeNode(7)),
@@ -513,9 +486,8 @@
        In-Order                 Pre-Order                Post-Order
         [2] 1                   [1]  1                    [3] 1
     
-      [1]3   4 [3]          [2] 3     4 [3          [1] 3     4 [2]
+      [1]3   4 [3]          [2] 3     4 [3]          [1] 3     4 [2]
   */
-  
   {
     /**
      * Depth First Search in-order traversal
@@ -530,7 +502,7 @@
         }
         return stack;
       };
-      ((root: TreeNode | null): number => traverse(root, []))(rootNode);
+      ((root: TreeNode | null): number => traverse(root, []))(treeNode);
     }
 
     /**
@@ -670,7 +642,7 @@
         return res;
       })(otherNode);
 
-      function right_tree_side(root: TreeNode | null): number[][] {
+      const right_tree_side = (root: TreeNode | null): number[][] => {
         let queue: TreeNode[] = [root];
         let finalArray = [];
 
@@ -691,7 +663,7 @@
         }
 
         return finalArray;
-      }
+      };
       right_tree_side(otherNode);
     }
 
@@ -700,12 +672,35 @@
      *
      * *****/
     {
-      function countNodesAgain(root: TreeNode | null): number {
+      const countNodesAgain = (root: TreeNode | null): number => {
         if (root === null) return 0;
         return countNodesAgain(root.left) + countNodesAgain(root.left) + 1;
-      }
+      };
     }
 
+    /**
+     *
+     * Width at each level
+     *
+     * **/
+    {
+      (function (root: SimpleNode | null): number[] {
+        let final = []
+        let queue = [root];
+
+        while(queue.length) {
+          final.push(queue.length);
+          let count = queue.length;
+          while(count > 0) {
+            let currentNode = queue.shift();
+            if (currentNode.children) queue.push(...currentNode.children);
+            count--;
+          }
+        }
+
+        return final;
+      })(simpleNode)
+    }
   }
 }
 //------------------------------------------------
@@ -716,59 +711,17 @@
  *
  **/
 {
-  class TreeNode {
-    val: number;
-    left: TreeNode | null;
-    right: TreeNode | null;
-    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-      this.val = val === undefined ? 0 : val;
-      this.left = left === undefined ? null : left;
-      this.right = right === undefined ? null : right;
-    }
-    insert(values) {
-      const queue = [this];
-      let i = 0;
-      while (queue.length > 0) {
-        let current = queue.shift();
-        for (let side of ["left", "right"]) {
-          if (!current[side]) {
-            if (values[i] !== null) {
-              current[side] = new TreeNode(values[i]);
-            }
-            i++;
-            if (i >= values.length) return this;
-          }
-          if (current[side]) queue.push(current[side]);
-        }
-      }
-      return this;
-    }
 
-  }
-  let rootNode = new TreeNode(
-    3,
-    new TreeNode(20, new TreeNode(15), new TreeNode(7)),
-    new TreeNode(9)
-  );
-  let otherNode = new TreeNode(
-    3,
-    new TreeNode(
-      6,
-      new TreeNode(9, null, new TreeNode(5, new TreeNode(8), null)),
-      new TreeNode(2, null, null)
-    ),
-    new TreeNode(1, null, new TreeNode(4, null, null))
-  );
   /**
    * binary search count the nodes 0(log n) ✅
    *
    * **/
   {
-    function getHeight(node: TreeNode | null, count: number): number {
+    const getHeight = (node: TreeNode | null, count: number): number => {
       if (!node) return count;
       return Math.max(getHeight(node.left, count + 1));
-    }
-    function nodeExists(mid: number, height: number, root: TreeNode) {
+    };
+    const nodeExists = (mid: number, height: number, root: TreeNode) => {
       let [left, right, localHeight] = [0, Math.pow(2, height) - 1, 0];
 
       while (localHeight < height) {
@@ -785,7 +738,7 @@
       }
 
       return root !== null;
-    }
+    };
     const countNodes = function (root: TreeNode) {
       if (!root) return 0;
 
@@ -833,7 +786,7 @@
       }
 
       return upperPart + left + 1;
-    })(otherNode);
+    })(treeNode);
   }
 
   /**
@@ -842,7 +795,6 @@
    * *****/
   {
     type numOrUndefined = number | undefined;
-
     const binSearch = (
       array: number[],
       left: number,
@@ -864,7 +816,7 @@
 
       return -1;
     };
-    function firstAndLastPositionOfTarget(nums: number[], target: number) {
+    const firstAndLastPositionOfTarget = (nums: number[], target: number) => {
       if (nums.length === 0) return [-1, -1];
       const first_position = binSearch(nums, 0, nums.length - 1, target);
       if (first_position === -1) return [-1, -1];
@@ -892,7 +844,7 @@
       end_position = temp_pos_2!;
 
       return [start_position, end_position];
-    }
+    };
     const otherBinary = function (nums: number[], target: number) {
       let s = 0;
       let e = nums.length;
@@ -1024,9 +976,15 @@
       const right = arr.length - 1;
       let indexToFind = arr.length - num;
       quickSort(arr, 0, arr.length - 1);
+      function swap(array: number[], j: number, i: number) {
+        const temp = array[j];
+        array[j] = array[i];
+        array[i] = temp;
+      }
+
       function quickSort(items: number[], left: number, right: number) {
         while (left < right) {
-          function partition(items, start, end) {
+          const partition = (items, start, end) => {
             let pivot = items[right];
             let finalIndexPosition = start;
             let positionTracker = start;
@@ -1039,12 +997,7 @@
             }
             swap(arr, finalIndexPosition, end);
             return finalIndexPosition;
-          }
-          function swap(array: number[], j: number, i: number) {
-            const temp = array[j];
-            array[j] = array[i];
-            array[i] = temp;
-          }
+          };
           let position = partition(arr, left, right);
           quickSort(items, left, position - 1);
           quickSort(items, position + 1, right);
@@ -1143,14 +1096,6 @@
     }
     return head;
   };
-  class ListNode {
-    val: number;
-    next: ListNode | null;
-    constructor(val?: number, next?: ListNode | null) {
-      this.val = val === undefined ? 0 : val;
-      this.next = next === undefined ? null : next;
-    }
-  }
   let [node1, node2, node3, node4, node5] = [
     new ListNode(1),
     new ListNode(2),
@@ -1163,12 +1108,13 @@
   node3.next = node4;
   node4.next = node5;
   node5.next = null;
+
 /**
  * Reverse Linked List ✅
  *
  * */
 {
-  function reverseList(head: ListNode | null): ListNode | null {
+  const reverseList = (head: ListNode | null): ListNode | null => {
     let prev: ListNode = null; // What we checked
     let current: ListNode = head; // We are checking this
     let tempNext: ListNode; // To be checked
@@ -1179,7 +1125,7 @@
       current = tempNext; // Set "current" to be current's old next node for the next loop.
     }
     return prev; // Return what we checked
-  }
+  };
   console.log(reverseList(node1));
 }
 

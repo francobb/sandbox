@@ -1,3 +1,4 @@
+"use strict";
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -34,6 +35,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+var en_1 = require("./leetcode/editor/en");
 /**
  * [ARRAY]
  *
@@ -297,17 +300,17 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             for (var i = 0; i < sArr.length; i++) {
                 var rn = sArr[i];
                 var nextNumeral = sArr[i + 1];
-                if (rn === "I" && minusOne_1.includes(nextNumeral)) {
+                if (rn === "I" && minusOne_1.indexOf(nextNumeral)) {
                     finalNum += -1;
                     finalNum += rmMap_1.get(nextNumeral);
                     i++;
                 }
-                else if (rn === "X" && minusTen_1.includes(nextNumeral)) {
+                else if (rn === "X" && minusTen_1.indexOf(nextNumeral)) {
                     finalNum += -10;
                     finalNum += rmMap_1.get(nextNumeral);
                     i++;
                 }
-                else if (rn === "C" && minusHundo_1.includes(nextNumeral)) {
+                else if (rn === "C" && minusHundo_1.indexOf(nextNumeral)) {
                     finalNum += -100;
                     finalNum += rmMap_1.get(nextNumeral);
                     i++;
@@ -333,7 +336,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                 return false;
             }
             if (tS.indexOf(sS) != 0) {
-                console.assert(tS.indexOf(sS), "letter don't equal");
+                console.assert(tS.indexOf(sS) !== 0, "letter don't equal");
                 return false;
             }
             console.log({ sS: sS, tS: tS });
@@ -471,52 +474,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
  *
  **/
 {
-    var TreeNode_1 = /** @class */ (function () {
-        function TreeNode(val, left, right) {
-            this.val = val === undefined ? 0 : val;
-            this.left = left === undefined ? null : left;
-            this.right = right === undefined ? null : right;
-        }
-        TreeNode.prototype.insert = function (values) {
-            var e_2, _a;
-            var queue = [this];
-            var i = 0;
-            while (queue.length > 0) {
-                var current = queue.shift();
-                try {
-                    for (var _b = (e_2 = void 0, __values(["left", "right"])), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var side = _c.value;
-                        if (!current[side]) {
-                            if (values[i] !== null) {
-                                current[side] = new TreeNode(values[i]);
-                            }
-                            i++;
-                            if (i >= values.length)
-                                return this;
-                        }
-                        if (current[side])
-                            queue.push(current[side]);
-                    }
-                }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                    }
-                    finally { if (e_2) throw e_2.error; }
-                }
-            }
-            return this;
-        };
-        return TreeNode;
-    }());
-    var rootNode_1 = new TreeNode_1(3, new TreeNode_1(20, new TreeNode_1(15), new TreeNode_1(7)), new TreeNode_1(9));
-    var otherNode = new TreeNode_1(3, new TreeNode_1(6, new TreeNode_1(9, null, new TreeNode_1(5, new TreeNode_1(8), null)), new TreeNode_1(2, null, null)), new TreeNode_1(1, null, new TreeNode_1(4, null, null)));
+    var rootNode_1 = new en_1.TreeNode(3, new en_1.TreeNode(20, new en_1.TreeNode(15), new en_1.TreeNode(7)), new en_1.TreeNode(9));
+    var otherNode = new en_1.TreeNode(3, new en_1.TreeNode(6, new en_1.TreeNode(9, null, new en_1.TreeNode(5, new en_1.TreeNode(8), null)), new en_1.TreeNode(2, null, null)), new en_1.TreeNode(1, null, new en_1.TreeNode(4, null, null)));
     /*
          In-Order                 Pre-Order                Post-Order
           [2] 1                   [1]  1                    [3] 1
       
-        [1]3   4 [3]          [2] 3     4 [3          [1] 3     4 [2]
+        [1]3   4 [3]          [2] 3     4 [3]          [1] 3     4 [2]
     */
     {
         /**
@@ -532,7 +496,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                 }
                 return stack;
             };
-            (function (root) { return traverse_1(root, []); })(rootNode_1);
+            (function (root) { return traverse_1(root, []); })(en_1.treeNode);
         }
         /**
          * Depth first Search pre-order traversal
@@ -660,7 +624,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                 dfs_1(root, 1, res);
                 return res;
             })(otherNode);
-            function right_tree_side(root) {
+            var right_tree_side = function (root) {
                 var queue = [root];
                 var finalArray = [];
                 while (queue.length) {
@@ -678,7 +642,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                     finalArray.push(subArray);
                 }
                 return finalArray;
-            }
+            };
             right_tree_side(otherNode);
         }
         /**
@@ -686,11 +650,33 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
          *
          * *****/
         {
-            function countNodesAgain(root) {
+            var countNodesAgain_1 = function (root) {
                 if (root === null)
                     return 0;
-                return countNodesAgain(root.left) + countNodesAgain(root.left) + 1;
-            }
+                return countNodesAgain_1(root.left) + countNodesAgain_1(root.left) + 1;
+            };
+        }
+        /**
+         *
+         * Width at each level
+         *
+         * **/
+        {
+            (function (root) {
+                var final = [];
+                var queue = [root];
+                while (queue.length) {
+                    final.push(queue.length);
+                    var count = queue.length;
+                    while (count > 0) {
+                        var currentNode = queue.shift();
+                        if (currentNode.children)
+                            queue.push.apply(queue, __spreadArray([], __read(currentNode.children), false));
+                        count--;
+                    }
+                }
+                return final;
+            })(en_1.simpleNode);
         }
     }
 }
@@ -701,58 +687,17 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
  *
  **/
 {
-    var TreeNode_2 = /** @class */ (function () {
-        function TreeNode(val, left, right) {
-            this.val = val === undefined ? 0 : val;
-            this.left = left === undefined ? null : left;
-            this.right = right === undefined ? null : right;
-        }
-        TreeNode.prototype.insert = function (values) {
-            var e_3, _a;
-            var queue = [this];
-            var i = 0;
-            while (queue.length > 0) {
-                var current = queue.shift();
-                try {
-                    for (var _b = (e_3 = void 0, __values(["left", "right"])), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var side = _c.value;
-                        if (!current[side]) {
-                            if (values[i] !== null) {
-                                current[side] = new TreeNode(values[i]);
-                            }
-                            i++;
-                            if (i >= values.length)
-                                return this;
-                        }
-                        if (current[side])
-                            queue.push(current[side]);
-                    }
-                }
-                catch (e_3_1) { e_3 = { error: e_3_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                    }
-                    finally { if (e_3) throw e_3.error; }
-                }
-            }
-            return this;
-        };
-        return TreeNode;
-    }());
-    var rootNode = new TreeNode_2(3, new TreeNode_2(20, new TreeNode_2(15), new TreeNode_2(7)), new TreeNode_2(9));
-    var otherNode = new TreeNode_2(3, new TreeNode_2(6, new TreeNode_2(9, null, new TreeNode_2(5, new TreeNode_2(8), null)), new TreeNode_2(2, null, null)), new TreeNode_2(1, null, new TreeNode_2(4, null, null)));
     /**
      * binary search count the nodes 0(log n) ✅
      *
      * **/
     {
-        function getHeight(node, count) {
+        var getHeight_1 = function (node, count) {
             if (!node)
                 return count;
-            return Math.max(getHeight(node.left, count + 1));
-        }
-        function nodeExists(mid, height, root) {
+            return Math.max(getHeight_1(node.left, count + 1));
+        };
+        var nodeExists_1 = function (mid, height, root) {
             var _a = __read([0, Math.pow(2, height) - 1, 0], 3), left = _a[0], right = _a[1], localHeight = _a[2];
             while (localHeight < height) {
                 var middle = Math.ceil((left + right) / 2);
@@ -767,18 +712,18 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                 localHeight++;
             }
             return root !== null;
-        }
+        };
         var countNodes = function (root) {
             if (!root)
                 return 0;
-            var height = getHeight(root, 0);
+            var height = getHeight_1(root, 0);
             if (height === 0)
                 return 1;
             var upperCount = Math.pow(2, height) - 1;
             var _a = __read([0, upperCount], 2), left = _a[0], right = _a[1];
             while (left < right) {
                 var mid = Math.ceil((left + right) / 2);
-                if (nodeExists(mid, height, root)) {
+                if (nodeExists_1(mid, height, root)) {
                     left = mid;
                 }
                 else {
@@ -791,7 +736,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             if (!root) {
                 return;
             }
-            var height = getHeight(root, 0);
+            var height = getHeight_1(root, 0);
             if (height === 0)
                 return 1;
             var upperPart = Math.pow(2, height) - 1;
@@ -799,7 +744,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             var right = upperPart;
             while (left < right) {
                 var mid = Math.ceil((left + right) / 2);
-                if (nodeExists(mid, height, root)) {
+                if (nodeExists_1(mid, height, root)) {
                     left = mid;
                 }
                 else {
@@ -807,7 +752,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                 }
             }
             return upperPart + left + 1;
-        })(otherNode);
+        })(en_1.treeNode);
     }
     /**
      * 1st and last position of target O(log n) ✅
@@ -830,7 +775,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             }
             return -1;
         };
-        function firstAndLastPositionOfTarget(nums, target) {
+        var firstAndLastPositionOfTarget = function (nums, target) {
             if (nums.length === 0)
                 return [-1, -1];
             var first_position = binSearch_1(nums, 0, nums.length - 1, target);
@@ -848,7 +793,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             }
             end_position = temp_pos_2;
             return [start_position, end_position];
-        }
+        };
         var otherBinary = function (nums, target) {
             var s = 0;
             var e = nums.length;
@@ -972,9 +917,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             var right = arr.length - 1;
             var indexToFind = arr.length - num;
             quickSort(arr, 0, arr.length - 1);
+            function swap(array, j, i) {
+                var temp = array[j];
+                array[j] = array[i];
+                array[i] = temp;
+            }
             function quickSort(items, left, right) {
                 while (left < right) {
-                    function partition(items, start, end) {
+                    var partition_1 = function (items, start, end) {
                         var pivot = items[right];
                         var finalIndexPosition = start;
                         var positionTracker = start;
@@ -987,13 +937,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                         }
                         swap(arr, finalIndexPosition, end);
                         return finalIndexPosition;
-                    }
-                    function swap(array, j, i) {
-                        var temp = array[j];
-                        array[j] = array[i];
-                        array[i] = temp;
-                    }
-                    var position = partition(arr, left, right);
+                    };
+                    var position = partition_1(arr, left, right);
                     quickSort(items, left, position - 1);
                     quickSort(items, position + 1, right);
                 }
@@ -1005,7 +950,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
             array[j] = array[i];
             array[i] = temp;
         };
-        var partition_1 = function (items, left, right) {
+        var partition_2 = function (items, left, right) {
             var pivot = items[Math.floor((right + left) / 2)], //middle element
             i = left, //left pointer
             j = right; //right pointer
@@ -1026,14 +971,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         };
         var quickSort_1 = function (array, left, right) {
             if (left < right) {
-                var partitionIndex = partition_1(array, left, right);
+                var partitionIndex = partition_2(array, left, right);
                 quickSort_1(array, left, partitionIndex - 1);
                 quickSort_1(array, partitionIndex + 1, right);
             }
         };
         var quickSelect_1 = function (array, left, right, idxToFind) {
             if (left < right) {
-                var partitionIdx = partition_1(array, left, right);
+                var partitionIdx = partition_2(array, left, right);
                 if (partitionIdx === idxToFind) {
                     return array[partitionIdx];
                 }
@@ -1056,9 +1001,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 {
     // @ts-ignore
     // const linkedList: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc), null);
-    var linkedList = [4, 3, 2, 0, 0, 0].reduce(function (acc, val) { return new ListNode_1(val, acc); }, null);
+    var linkedList = [4, 3, 2, 0, 0, 0].reduce(function (acc, val) { return new ListNode(val, acc); }, null);
     // const l2: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
-    var l2 = [6, 5, 4].reduce(function (acc, val) { return new ListNode_1(val, acc); }, null);
+    var l2 = [6, 5, 4].reduce(function (acc, val) { return new ListNode(val, acc); }, null);
     // @ts-ignore
     var flattenLinkedList = function (head) {
         if (!head)
@@ -1087,19 +1032,12 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
         }
         return head;
     };
-    var ListNode_1 = /** @class */ (function () {
-        function ListNode(val, next) {
-            this.val = val === undefined ? 0 : val;
-            this.next = next === undefined ? null : next;
-        }
-        return ListNode;
-    }());
     var _a = __read([
-        new ListNode_1(1),
-        new ListNode_1(2),
-        new ListNode_1(3),
-        new ListNode_1(4),
-        new ListNode_1(5),
+        new ListNode(1),
+        new ListNode(2),
+        new ListNode(3),
+        new ListNode(4),
+        new ListNode(5),
     ], 5), node1 = _a[0], node2 = _a[1], node3 = _a[2], node4 = _a[3], node5 = _a[4];
     node1.next = node2;
     node2.next = node3;
@@ -1111,7 +1049,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
      *
      * */
     {
-        function reverseList(head) {
+        var reverseList = function (head) {
             var prev = null; // What we checked
             var current = head; // We are checking this
             var tempNext; // To be checked
@@ -1122,7 +1060,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
                 current = tempNext; // Set "current" to be current's old next node for the next loop.
             }
             return prev; // Return what we checked
-        }
+        };
         console.log(reverseList(node1));
     }
     /**

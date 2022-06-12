@@ -1,36 +1,21 @@
+"use strict";
 // const {performance} = require('perf_hooks');
-// ________________________________________________________________________
-// todo: FINISH THIS
+Object.defineProperty(exports, "__esModule", { value: true });
+console.log((function () {
+})());
+// NEED EXPLANATION
 // console.log(
-//   function expandFromCenter(str: string, left: number, right: number) {
-//     if (str == null || left > right ) return 0
+//   (function excel_sheet_column(columnNumber: number): string {
+//     let excelColumn = '';
+//     let charCode;
 //
-//     while(left >= 0 && right < str.length && str.charAt(left) == str.charAt(right)) {
-//       left--;
-//       right++;
+//     while (columnNumber > 0) {
+//       charCode = (columnNumber - 1) % 26;
+//       excelColumn = String.fromCharCode(65 + charCode) + excelColumn;
+//       columnNumber = (columnNumber - charCode) / 26 | 0;
 //     }
-//
-//     return right - left - 1;
-//   }
+//     return excelColumn;
+//   })(500)
+//   // })(28)
+//   // })(26)
 // )
-// todo: FINISH THIS!!!!
-// console.log(
-// (function addBinary(a: string, b: string): string {
-//   let addBinaryManual = (A, B) => {
-//     let sum = '';
-//     let i = A.length -1;
-//     let j = B.length -1;
-//     while(i >= 0 || j >= 0) {
-//       let a = A[i];
-//       let b = B[i];
-//       i--
-//       j--
-//     }
-//     return sum
-//   }
-//
-//   let max = Math.max()
-//
-// })("11", "1")
-// )
-console.log();
