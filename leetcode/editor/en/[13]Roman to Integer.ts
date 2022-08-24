@@ -83,7 +83,6 @@ function romanToInt(s: string): number {
   if (s.length>15) return 0;
 
   // create map of conversion
-
   let finalNum = 0;
 
   // break string input into array to iterate over

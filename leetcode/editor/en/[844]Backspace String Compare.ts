@@ -68,7 +68,6 @@ function backspaceCompare(s: string, t: string): boolean {
         }
       }
     }
-
     if (s[pointerS] === "#") {
       let stepsS = 2;
 

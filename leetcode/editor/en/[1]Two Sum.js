@@ -57,5 +57,4 @@ function twoSum(nums, target) {
         }
     }
 }
-;
 //leetcode submit region end(Prohibit modification and deletion)

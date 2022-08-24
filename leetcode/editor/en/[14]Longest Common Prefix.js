@@ -32,17 +32,14 @@
 function longestCommonPrefix(strs) {
     if (strs.length == 0)
         return "";
-    // compare to first element in string
-    var prefix = strs[0];
+    var prefix = strs[0]; // compare to first element in string
     //loop through array
     strs.forEach(function (wrd, i) {
         if (wrd == prefix)
             return;
         //if prefix is not in the current word
         while (strs[i].indexOf(prefix) != 0) {
-            // take out a letter from prefix
-            prefix = prefix.slice(0, -1);
-            console.log({ prefix: prefix });
+            prefix = prefix.slice(0, -1); // take out a letter from prefix
         }
     });
     return prefix;
