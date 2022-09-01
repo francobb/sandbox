@@ -36,6 +36,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// @ts-nocheck
 var en_1 = require("./leetcode/editor/en");
 /**
  * [ARRAY]
@@ -141,8 +142,8 @@ var en_1 = require("./leetcode/editor/en");
                         // skip duplicates
                         while (nums[leftP] === nums[leftP + 1])
                             leftP++;
-                        while (nums[rightP] === nums[rightP + 1])
-                            rightP++;
+                        while (nums[rightP] === nums[rightP - 1])
+                            rightP--;
                         leftP++;
                         rightP--;
                     }
@@ -150,6 +151,34 @@ var en_1 = require("./leetcode/editor/en");
             }
             return finalArr;
         })([-1, 0, 1, 2, -1, -4]);
+    }
+    /**
+     *
+     * [17] contains_duplicate
+     *
+     **/
+    {
+        var contains_duplicate = function (nums) {
+            if (nums.length === 0)
+                return false;
+            var numSet = new Set(nums);
+            return numSet.size != nums.length;
+        };
+        function duplicateContains(nums) {
+            nums.sort();
+            return nums.some(function (el, idx) { return el === nums[idx + 1]; });
+        }
+        function contains_Duplicate(nums) {
+            var hs = new Set();
+            for (var i = 0; i < nums.length; i++) {
+                if (hs.has(nums[i]))
+                    return true;
+                if (!hs.has(nums[i]))
+                    hs.add(nums[i]);
+            }
+            return false;
+        }
+        console.log(duplicateContains([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]));
     }
     /**
      * Array Chunking
@@ -187,7 +216,7 @@ var en_1 = require("./leetcode/editor/en");
  * */
 {
     /**
-     * longest_substring ✅
+     * [3] longest_substring ✅
      *
      * */
     {
@@ -242,6 +271,9 @@ var en_1 = require("./leetcode/editor/en");
             }
             return newS !== newL;
         })("a#c", "b");
+        // )("ab#c", "ab#c")
+        // )("a##c", "#a#c")
+        // )("rjhbpvh", "rm#jhbpvh")
     }
     /**
      * [344] String reverse ✅
@@ -271,56 +303,6 @@ var en_1 = require("./leetcode/editor/en");
             // version three
             return str.split('').reverse().join('');
         })("reverse");
-    }
-    /**
-     * Roman Integer ✅
-     *
-     * *****/
-    {
-        var rmMap_1 = new Map();
-        rmMap_1.set("I", 1);
-        rmMap_1.set("V", 5);
-        rmMap_1.set("X", 10);
-        rmMap_1.set("L", 50);
-        rmMap_1.set("C", 100);
-        rmMap_1.set("D", 500);
-        rmMap_1.set("M", 1000);
-        var minusOne_1 = ["V", "X"];
-        var minusTen_1 = ["L", "C"];
-        var minusHundo_1 = ["D", "M"];
-        (function roman_to_int(s) {
-            if (s.length > 15)
-                return 0;
-            // create map of conversion
-            var finalNum = 0;
-            // break string input into array to iterate over
-            var sArr = Array.from(String(s));
-            // Or
-            var sArr1 = __spreadArray([], __read(s.split("")), false);
-            for (var i = 0; i < sArr.length; i++) {
-                var rn = sArr[i];
-                var nextNumeral = sArr[i + 1];
-                if (rn === "I" && minusOne_1.indexOf(nextNumeral)) {
-                    finalNum += -1;
-                    finalNum += rmMap_1.get(nextNumeral);
-                    i++;
-                }
-                else if (rn === "X" && minusTen_1.indexOf(nextNumeral)) {
-                    finalNum += -10;
-                    finalNum += rmMap_1.get(nextNumeral);
-                    i++;
-                }
-                else if (rn === "C" && minusHundo_1.indexOf(nextNumeral)) {
-                    finalNum += -100;
-                    finalNum += rmMap_1.get(nextNumeral);
-                    i++;
-                }
-                else {
-                    finalNum += rmMap_1.get(rn);
-                }
-            }
-            return finalNum;
-        })("MCMXCIV");
     }
     /**
      * [242] Valid Anagram ✅
@@ -385,6 +367,133 @@ var en_1 = require("./leetcode/editor/en");
         })(" fly me to the moon ");
     }
     /**
+     * [290] Word Pattern
+     */
+    {
+        (function wordPattern(pattern, s) {
+            if (!pattern || !s.length)
+                return false;
+            var sArray = s.split(" ");
+            if (pattern.length !== sArray.length)
+                return false;
+            var sMap = {};
+            var pMap = {};
+            var left = 0;
+            while (left < sArray.length) {
+                var currentP = pattern[left];
+                var currentS = sArray[left];
+                if (!sMap[currentS] && !pMap[currentP]) {
+                    pMap[currentP] = currentS;
+                    sMap[currentS] = currentP;
+                }
+                else if (pMap[currentP] !== currentS) {
+                    return false;
+                }
+                left++;
+            }
+            return true;
+            // })("aaaa", "dog cat cat dog")
+            // })("abcd", "dog cat cat dog")
+            // })("abdd", "dog cat fish bird")
+            // })("abba", "dog cat cat dog")
+            // })("abba", "dog dog dog dog")
+            // })("abaaa", "dog cat cat dog dog")
+            // })("abc", "b c a")
+        })("ab", "hannah heather");
+    }
+    /**
+     * [14] Longest Common Prefix
+     */
+    {
+        //   function longestCommonPrefix(strs: string[]): string {
+        //     if (strs.length == 0) return ""
+        //
+        //     let prefix = strs[0]; // compare to first element in string
+        //
+        //     //loop through array
+        //     strs.forEach((wrd, i) => {
+        //       if (wrd==prefix) return;
+        //       //if prefix is not in the current word
+        //       while(strs[i].indexOf(prefix) != 0) {
+        //         prefix=prefix.slice(0, -1);  // take out a letter from prefix
+        //       }
+        //     })
+        //     return prefix;
+        //     // })(["flower","flow","flight"])
+        //   // })(["dog", "racecar", "car"]
+        // }
+    }
+    /**
+     * Roman Integer ✅
+     *
+     * *****/
+    {
+        var rmMap_1 = new Map();
+        rmMap_1.set("I", 1);
+        rmMap_1.set("V", 5);
+        rmMap_1.set("X", 10);
+        rmMap_1.set("L", 50);
+        rmMap_1.set("C", 100);
+        rmMap_1.set("D", 500);
+        rmMap_1.set("M", 1000);
+        var minusOne_1 = ["V", "X"];
+        var minusTen_1 = ["L", "C"];
+        var minusHundo_1 = ["D", "M"];
+        (function roman_to_int(s) {
+            if (s.length > 15)
+                return 0;
+            // create map of conversion
+            var finalNum = 0;
+            // break string input into array to iterate over
+            var sArr = Array.from(String(s));
+            // Or
+            var sArr1 = __spreadArray([], __read(s.split("")), false);
+            for (var i = 0; i < sArr.length; i++) {
+                var rn = sArr[i];
+                var nextNumeral = sArr[i + 1];
+                if (rn === "I" && minusOne_1.indexOf(nextNumeral)) {
+                    finalNum += -1;
+                    finalNum += rmMap_1.get(nextNumeral);
+                    i++;
+                }
+                else if (rn === "X" && minusTen_1.indexOf(nextNumeral)) {
+                    finalNum += -10;
+                    finalNum += rmMap_1.get(nextNumeral);
+                    i++;
+                }
+                else if (rn === "C" && minusHundo_1.indexOf(nextNumeral)) {
+                    finalNum += -100;
+                    finalNum += rmMap_1.get(nextNumeral);
+                    i++;
+                }
+                else {
+                    finalNum += rmMap_1.get(rn);
+                }
+            }
+            return finalNum;
+        })("MCMXCIV");
+    }
+    /**
+     * Roman To Int
+     */
+    {
+        (function romanToInt(s) {
+            var roman = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000 };
+            if (s.length > 15)
+                return 0;
+            // create map of conversion
+            var ans = 0;
+            for (var i = s.length - 1; ~i; i--) {
+                var num = roman[s.charAt(i)];
+                if (4 * num < ans)
+                    ans -= num;
+                else
+                    ans += num;
+            }
+            return ans;
+        })("MCMXCIV");
+    }
+    /**
      *
      *  Valid Palindrome string
      *
@@ -415,7 +524,7 @@ var en_1 = require("./leetcode/editor/en");
      * FizzBuzz
      */
     {
-        (void function fizzBuzz(n) {
+        (function fizzBuzz(n) {
             var count = 1;
             while (count <= n) {
                 var fizz = count % 3 == 0 ? "fizz" : "";
@@ -426,6 +535,27 @@ var en_1 = require("./leetcode/editor/en");
         }(20));
         // fizzBuzz(5)
         // fizzBuzz(5)}
+    }
+    /**
+     * Steps
+     * **/
+    {
+        (function (n) {
+            for (var i = 0; i < n; i++) {
+                var stair = '';
+                var count = 0;
+                while (count < n) {
+                    if (count <= i) {
+                        stair += "#";
+                    }
+                    else {
+                        stair += "_";
+                    }
+                    count++;
+                }
+                console.log("'".concat(stair, "'"));
+            }
+        })(3);
     }
 }
 //------------------------------------------------
@@ -479,7 +609,7 @@ var en_1 = require("./leetcode/editor/en");
     /*
          In-Order                 Pre-Order                Post-Order
           [2] 1                   [1]  1                    [3] 1
-      
+
         [1]3   4 [3]          [2] 3     4 [3]          [1] 3     4 [2]
     */
     {

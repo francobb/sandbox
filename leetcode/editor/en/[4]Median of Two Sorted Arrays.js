@@ -56,6 +56,7 @@
 // 👍 10482 👎 1566
 //leetcode submit region begin(Prohibit modification and deletion)
 function findMedianSortedArrays(nums1, nums2) {
+    console.log("HERE");
     var l1 = nums1.length, l2 = nums2.length;
     var isEven = (l1 + l2) % 2 === 0;
     var i = 0, j = 0, counter = 0, arr = [];
@@ -81,4 +82,5 @@ function findMedianSortedArrays(nums1, nums2) {
     return 0;
 }
 ;
+findMedianSortedArrays([1, 2], [3, 4]);
 //leetcode submit region end(Prohibit modification and deletion)
