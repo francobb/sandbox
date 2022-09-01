@@ -39,22 +39,28 @@ function trap(height: number[]): number {
   let totalH20 = 0;
 
   while (leftP < rightP) {
-    if (height[leftP] <= height[rightP]) {
-      if (height[leftP] >= maxLeft) {
-        maxLeft = height[leftP];
+    let [l, r] = [height[leftP], height[rightP]]
+    // which side has a wall already ?
+    if (l <= r) { // right has a bigger or equal sized wall
+      if (maxLeft < l) {
+        // calculate new wall
+        maxLeft = l;
       } else {
-        totalH20 += maxLeft - height[leftP];
+        // use wall to calculate current level
+        totalH20 += maxLeft - l;
       }
       leftP++;
-    } else {
-      if (height[rightP] >= maxRight) {
-        maxRight = height[rightP];
+    }
+    else {
+      if (maxRight < r){
+        maxRight = r;
       } else {
-        totalH20 += maxRight - height[rightP];
+        totalH20 += maxRight - r;
       }
       rightP--;
     }
   }
+
   return totalH20;
 }
 //leetcode submit region end(Prohibit modification and deletion)
