@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
+import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
 
   /**
    * [ARRAY]
@@ -11,7 +10,7 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
      *
      * */
     {
-      (function (nums, number) {
+      (function two_sum(nums, number) {
         let map = new Map();
 
         for (let index = 0; index < nums.length; index++) {
@@ -29,30 +28,39 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
     }
 
     /**
-     * [42] Trap Rain Water ✅
      *
-     * *****/
+     * [4] median of two sorted
+     *
+     **/
     {
-      (function (height: number[]): number {
-        let lP = 0,
-            rP = height.length - 1;
-        let [maxL, maxR, maxH20] = [0, 0, 0];
-
-        while (lP <= rP) {
-          if (height[lP] <= height[rP]) {
-            if (height[lP] >= maxL) maxL = height[lP];
-            else maxH20 += maxL - height[lP];
-            lP++;
+      function findMedianSortedArrays1(nums1: number[], nums2: number[]): number {
+        const l1 = nums1.length,
+            l2 = nums2.length;
+        const isEven = (l1 + l2) % 2 === 0;
+        let i = 0,
+            j = 0,
+            counter = 0,
+            arr: number[] = [];
+        while (i < l1 || j < l2) {
+          if (j === l2 || nums1[i] < nums2[j]) {
+            arr[counter] = nums1[i];
+            ++i;
           } else {
-            if (height[rP] >= maxR) maxR = height[rP];
-            else maxH20 += maxR - height[rP];
-            rP--;
+            arr[counter] = nums2[j];
+            ++j;
+          }
+          ++counter;
+          if (counter > (l1 + l2) / 2) {
+            if (isEven) {
+              return (arr[arr.length - 2] + arr[arr.length - 1]) / 2.0;
+            } else {
+              return arr[arr.length - 1];
+            }
           }
         }
-
-        // console.log({ maxH20 });
-        return maxH20;
-      })([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]);
+        return 0;
+      }
+      findMedianSortedArrays1([1,2], [3,4])
     }
 
     /**
@@ -60,7 +68,7 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
      *
      * */
     {
-      (function (height: number[]): number {
+      (function container_most_water(height: number[]): number {
         let totalArea = 0;
         let leftP = 0,
             rightP = height.length - 1;
@@ -90,33 +98,33 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
      **/
     {
       (
-        (nums: number[]): number[][] => {
-        nums.sort((a,b) => a - b);
-        let finalArr = [];
-        for (let i = 0; i < nums.length; i++) {
-          if (i > 0 && nums[i] == nums[i -1]) continue
-          let leftP = i+1, rightP = nums.length-1;
-          let target = 0 - nums[i];
+          (nums: number[]): number[][] => {
+            nums.sort((a,b) => a - b);
+            let finalArr = [];
+            for (let i = 0; i < nums.length; i++) {
+              if (i > 0 && nums[i] == nums[i -1]) continue
+              let leftP = i+1, rightP = nums.length-1;
+              let target = 0 - nums[i];
 
-          while(leftP < rightP){
-            const sum = nums[leftP] + nums[rightP];
-            if (sum < target){
-              leftP++;
-            } else if( sum > target) {
-              rightP--;
-            } else {
-              finalArr.push(nums[i], nums[leftP], nums[rightP]);
-              // skip duplicates
-              while(nums[leftP]=== nums[leftP+1]) leftP++;
-              while(nums[rightP]=== nums[rightP-1]) rightP--;
-              leftP++;
-              rightP--;
+              while(leftP < rightP){
+                const sum = nums[leftP] + nums[rightP];
+                if (sum < target){
+                  leftP++;
+                } else if( sum > target) {
+                  rightP--;
+                } else {
+                  finalArr.push(nums[i], nums[leftP], nums[rightP]);
+                  // skip duplicates
+                  while(nums[leftP]=== nums[leftP+1]) leftP++;
+                  while(nums[rightP]=== nums[rightP-1]) rightP--;
+                  leftP++;
+                  rightP--;
+                }
+              }
             }
-          }
-        }
 
-          return finalArr;
-        }
+            return finalArr;
+          }
       ) ([-1,0,1,2,-1,-4])
     }
 
@@ -126,17 +134,16 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
      *
      **/
     {
-      let contains_duplicate = (nums: number[]) => {
+      (function contains_duplicate(nums: number[]) {
         if (nums.length===0) return false;
         let numSet = new Set(nums);
         return numSet.size != nums.length;
-      };
+      })([1,1,1,3,3,4,3,2,4,2])
 
       function duplicateContains(nums: number[]){
         nums.sort()
         return nums.some((el, idx) => el === nums[idx + 1]);
       }
-
       function contains_Duplicate(nums: number[]): boolean {
         let hs = new Set();
         for (let i = 0; i < nums.length; i++) {
@@ -149,33 +156,171 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
     }
 
     /**
+     *
+     * [26] remove duplicates
+     *
+     **/
+    {
+      (function remove_duplicates(numAry) {
+        let i = 0;
+        for (let j = 0; j < numAry.length; j++) {
+          if ( numAry[i] != numAry[j]){
+            i++;
+            numAry[i] = numAry[j];
+            // alternate
+            // numAry[++i] = numAry[j];
+          }
+        }
+
+        return ++i; // add one to offset idx 0
+      })([0,0,1,1,1,2,2,3,3,4])
+    }
+
+    /**
+     *
+     * [27] remove Element
+     *
+     **/
+    {
+      (
+          function removeElement(ary, tgt) {
+            let j = 0;
+            for (let i = 0; i < ary.length; i++) {
+              if (ary[i] != tgt) {
+                ary[j] = ary[i];
+                j++;
+              }
+            }
+
+            return j;
+          }
+      )([0,1,2,2,3,0,4,2], 2)
+    }
+
+    /**
+     * [35] Search Insert Position
+     *
+     */
+    {
+      (
+          function searchInsertPosition(nums, target){
+            let s = 0;
+            let e = nums.length-1;
+            let m;
+            while (s <= e && ((s||e) <=  nums.length)) {
+              m = Math.floor((s + e) / 2);
+
+              if (nums[m] === target){
+                return m;
+              }
+
+              if (nums[m] > target) {
+                e = m - 1;
+              }  else {
+                s = m + 1;
+              }
+            }
+
+            if (s > e) {
+              return s
+            } else {
+              return e
+            }
+
+          }
+      )([2,7,8,9,10], 9)
+    }
+
+    /**
+     * [42] Trap Rain Water ✅
+     *
+     * *****/
+    {
+      (function trap_rain_water(height: number[]): number {
+        let lP = 0,
+            rP = height.length - 1;
+        let [maxL, maxR, maxH20] = [0, 0, 0];
+
+        while (lP <= rP) {
+          if (height[lP] <= height[rP]) {
+            if (height[lP] >= maxL) maxL = height[lP];
+            else maxH20 += maxL - height[lP];
+            lP++;
+          } else {
+            if (height[rP] >= maxR) maxR = height[rP];
+            else maxH20 += maxR - height[rP];
+            rP--;
+          }
+        }
+
+        // console.log({ maxH20 });
+        return maxH20;
+      })([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]);
+    }
+
+    /**
+     * [66] Plus One
+     */
+    {
+      function plusOne(digits: number[]): number[] {
+        let co= true;
+        let pointer = digits.length - 1;
+        while(pointer >= 0 && co) {
+          digits[pointer]++
+          co = digits[pointer]>=10
+          co ? digits[pointer] = 0 : null;
+          pointer--;
+        }
+        co && digits.unshift(1);
+        return digits
+
+      }
+    }
+
+    {   (
+      function merge(nums1: number[], m: number, nums2: number[], n: number): void {
+        // pointer for num1 & num2
+        let [lp, rp] = [0, 0];
+        let l;
+
+        while(lp < m && m > 0) {
+          l = nums1[lp];
+          while (l >= nums2[rp]) {
+            nums1.splice(nums1.length-1, 1);
+            let item = nums2.splice(rp, 1)
+            nums1.splice(lp, 0, item[0])
+            lp++;
+            m++;
+          }
+
+          lp++
+        }
+        nums1.splice(lp, nums2.length, ...nums2);
+        console.log({nums1});
+      }
+      // )([1,2,3,0,0,0], 3, [2,5,6], 3)
+      // )([4,5,6,0,0,0], 3, [1,2,3], 3)
+      // )([1,0], 1, [2], 1)
+    )([0], 0, [1], 1)}
+
+    /**
      * Array Chunking
      *
      * *****/
     {
-      (function(arr: number[], size: number) {
-        let finalArr = []
-        // version one
-        for (const num in arr) {
-          let last = finalArr[finalArr.length -1]
-          if(!last || last.length === size){
-            finalArr.push([num])
-          } else {
-            last.push(num);
-          }
-        }
-        return finalArr
+      (
+        (ary: number[], sz: number) => {
+          let finalChunked = [];
+          let index = 0;
 
-        // version two
-        let count = 0;
-        while (count < arr.length) {
-          finalArr.push(arr.slice(count, count + size));
-          count+=size;
+          while(index < ary.length) {
+            finalChunked.push(ary.slice(index, index+sz))
+            index+=sz;
+          }
+
+          return finalChunked;
         }
-        console.log({ finalArr });
-        return finalArr
-      })
-      ([1,2,3,4,5], 3)
+      )([1,2,3,4,5,6,7,8], 4)
     }
   }
   //------------------------------------------------
@@ -314,8 +459,8 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
         // turn number into array
         let xS1 = "" + x;
         let arr = [...xS1.split("")];
-        let xS2 = Array.from(String(x));
-        let xN2 = Array.from(String(x), Number);
+        // let xS2 = Array.from(String(x));
+        // let xN2 = Array.from(String(x), Number);
 
 
         // let numArr = [...x];
@@ -480,7 +625,7 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
 
     /**
      *
-     *  Valid Palindrome string
+     *  [125] Valid Palindrome
      *
      **/
     {
@@ -1050,55 +1195,84 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
       //   }
       //   return 0;
       // })([1, 2], [3, 4]);
-      // (function (nums1: number[], nums2: number[]): number {
-      //   let totalSize = nums1.length + nums2.length;
-      //   let half = totalSize / 2;
-      //   let isEven = half % 2 === 0;
-      //   if (nums1.length > nums2.length) [nums1, nums2] = [nums2, nums1];
-      //   !isEven ? half = Math.floor(half): null;
-      //
-      //   let lPointer = 0,
-      //     rPointer = nums1.length;
-      //
-      //   function getMax(nums: number[], i: number) {
-      //     if (i == 0) return Number.NEGATIVE_INFINITY
-      //     else return nums[i - 1];
-      //   }
-      //   function getMin(nums: number[], i: number) {
-      //     if (i==nums.length) return Number.POSITIVE_INFINITY;
-      //     else  return nums[i];
-      //   }
-      //
-      //   while (lPointer <= rPointer) {
-      //     let i = (lPointer + rPointer) / 2; // a
-      //     let j = Math.floor((totalSize + 1) / 2 - i);
-      //     // console.log({i, j});
-      //
-      //     let left1 = getMax(nums1, i);
-      //     let right1 =  getMin(nums1, i);
-      //
-      //     let left2 = getMax(nums2, j);
-      //     let right2 = getMin(nums2, j);
-      //
-      //     if (left1 <= right1 && left2 <= right2) {
-      //       if (isEven){
-      //         // [1, 2] [3, 4]
-      //         console.log(Math.max(left1, left2) + Math.min(right1, right2) / 2)
-      //         return Math.max(left1, left2) + Math.min(right1, right2) / 2
-      //       }
-      //       console.log(Math.max(left1, left2))
-      //       return Math.max(left1, left2);
-      //     }
-      //
-      //     if (left1 > right2){
-      //       rPointer = i -1;
-      //     } else {
-      //       lPointer = i + 1;
-      //     }
-      //   }
-      //   return Number(-1);
-      // })([1, 2], [3, 4]);
+      (function (nums1: number[], nums2: number[]): number {
+        let totalSize = nums1.length + nums2.length;
+        let half = totalSize / 2;
+        let isEven = half % 2 === 0;
+        if (nums1.length > nums2.length) [nums1, nums2] = [nums2, nums1];
+        !isEven ? half = Math.floor(half): null;
+
+        let lPointer = 0,
+          rPointer = nums1.length;
+
+        function getMax(nums: number[], i: number) {
+          if (i == 0) return Number.NEGATIVE_INFINITY
+          else return nums[i - 1];
+        }
+        function getMin(nums: number[], i: number) {
+          if (i==nums.length) return Number.POSITIVE_INFINITY;
+          else  return nums[i];
+        }
+
+        while (lPointer <= rPointer) {
+          let i = (lPointer + rPointer) / 2; // a
+          let j = Math.floor((totalSize + 1) / 2 - i);
+          // console.log({i, j});
+
+          let left1 = getMax(nums1, i);
+          let right1 =  getMin(nums1, i);
+
+          let left2 = getMax(nums2, j);
+          let right2 = getMin(nums2, j);
+
+          if (left1 <= right1 && left2 <= right2) {
+            if (isEven){
+              // [1, 2] [3, 4]
+              console.log(Math.max(left1, left2) + Math.min(right1, right2) / 2)
+              return Math.max(left1, left2) + Math.min(right1, right2) / 2
+            }
+            console.log(Math.max(left1, left2))
+            return Math.max(left1, left2);
+          }
+
+          if (left1 > right2){
+            rPointer = i -1;
+          } else {
+            lPointer = i + 1;
+          }
+        }
+        return Number(-1);
+      })([1, 2], [3, 4]);
       // })([1, 2, 9, 10], [-1, 0, 0, 2]);
+
+      function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
+        const l1 = nums1.length,
+          l2 = nums2.length;
+        const isEven = (l1 + l2) % 2 === 0;
+        let i = 0,
+          j = 0,
+          counter = 0,
+          arr: number[] = [];
+        while (i < l1 || j < l2) {
+          if (j === l2 || nums1[i] < nums2[j]) {
+            arr[counter] = nums1[i];
+            ++i;
+          } else {
+            arr[counter] = nums2[j];
+            ++j;
+          }
+          ++counter;
+          if (counter > (l1 + l2) / 2) {
+            if (isEven) {
+              return (arr[arr.length - 2] + arr[arr.length - 1]) / 2.0;
+            } else {
+              return arr[arr.length - 1];
+            }
+          }
+        }
+        return 0;
+      }
+
     }
 
     /**
@@ -1177,6 +1351,7 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
           quickSort(array, partitionIndex + 1, right);
         }
       };
+
       const quickSelect = function(
         array: number[],
         left: number,
@@ -1204,48 +1379,43 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
    *
    **/
   {
-// @ts-ignore
-// const linkedList: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc), null);
-    const linkedList: any = [4, 3, 2, 0, 0, 0].reduce((acc, val) => new ListNode(val, acc), null);
-// const l2: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
-    const l2: any = [6, 5, 4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
-// @ts-ignore
-    const flattenLinkedList = (head: Node1 | null): Node1 | null => {
-      if (!head) return head;
-      let currentNode = head;
-      while (head) {
-        if (currentNode.child === null) {
-          // if node doesn't have children keep it moving:
-          if (currentNode.next != null) currentNode = currentNode.next;
-        } else {
-          let lastChildNode = currentNode.child; // make child node a variable.
-          while (lastChildNode.next !== null) {
-            // check if the child has a sibling
-            lastChildNode = lastChildNode.next; // make sibling the
+    // const linkedList: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc), null);
+    // const l2: ListNode = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
+    // const linkedList: ListNode = [4, 3, 2, 0, 0, 0].reduce((acc: ListNode, val: number) => new ListNode(val, acc), null);
+    const l1: any = [6, 5, 4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
+    const l2: any = [7, 3, 4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null);
+
+    /**
+     * Flatten Linked List ✅
+     *
+     **/
+    {
+      const flattenLinkedList = (head: Node | null): Node | null => {
+        if (!head) return head;
+        let currentNode = head;
+        while (head) {
+          if (currentNode.child === null) {
+            // if node doesn't have children keep it moving:
+            if (currentNode.next != null) currentNode = currentNode.next;
+          } else {
+            let lastChildNode = currentNode.child; // make child node a variable.
+            while (lastChildNode.next !== null) {
+              // check if the child has a sibling
+              lastChildNode = lastChildNode.next; // make sibling the
+            }
+            lastChildNode.next = currentNode.next;
+            if (currentNode.next !== null) {
+              lastChildNode.next.prev = lastChildNode;
+            }
+            currentNode.next = currentNode.child;
+            currentNode.child.prev = currentNode;
+            currentNode.child = null;
           }
-          lastChildNode.next = currentNode.next;
-          if (currentNode.next !== null) {
-            lastChildNode.next.prev = lastChildNode;
-          }
-          currentNode.next = currentNode.child;
-          currentNode.child.prev = currentNode;
-          currentNode.child = null;
         }
-      }
-      return head;
-    };
-    let [node1, node2, node3, node4, node5] = [
-      new ListNode(1),
-      new ListNode(2),
-      new ListNode(3),
-      new ListNode(4),
-      new ListNode(5),
-    ];
-    node1.next = node2;
-    node2.next = node3;
-    node3.next = node4;
-    node4.next = node5;
-    node5.next = null;
+        return head;
+      };
+    }
+
 
     /**
      * Reverse Linked List ✅
@@ -1264,7 +1434,7 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
         }
         return prev; // Return what we checked
       };
-      console.log(reverseList(node1));
+      console.log(reverseList([1, 2, 3, 4, 5].reduce((acc: ListNode, val: number) => new ListNode(val, acc), null)));
     }
 
     /**
@@ -1272,10 +1442,11 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
      *
      * */
     {
-      // @ts-ignore
       function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
         let p1 = l1, p2 = l2;
         let carryOver = 0;
+        let preHead = new ListNode(0);
+        let mover = preHead;
 
         while (p1 || p2) {
           let val = 0;
@@ -1290,30 +1461,15 @@ import { simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en
             p2 = p2.next;
           }
           let sum = val + val2 + carryOver;
-
-          // if (sum > 9) {
-          //   carryOver = 1;
-          // } else {carryOver = 0}
-          let n = new String("pAEBle")
-          n.substring(0, 3)
           carryOver = Math.floor(sum / 10)
           let digit = sum % 10;
-
-          // let sum = val+val2
-          // if (carryOver) {
-          //   carryOver--
-          //   sum++
-          // }
-          // if (sum > 9){
-          //   sum = 0
-          //   carryOver = 1
-          // }
-          // console.log(val + "+" + val2 + "=" + sum)
+          mover.next = new ListNode(digit);
+          mover = mover.next;
         }
 
-        return null;
+        return preHead.next;
       };
-      addTwoNumbers(l2, node3)
+      addTwoNumbers(l2, l1)
 
     }
   }

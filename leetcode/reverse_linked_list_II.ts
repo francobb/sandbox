@@ -1,10 +1,19 @@
-import { ListNode1 } from "./reverse_Linked_List";
+// export class ListNode1 {
+//   val: number;
+//   next: ListNode1 | null;
+//   constructor(val?: number, next?: ListNode1 | null) {
+//     this.val = val === undefined ? 0 : val;
+//     this.next = next === undefined ? null : next;
+//   }
+// }
+
+import { ListNode } from "./editor/en";
 
 function reverseBetween1(
-  head: ListNode1 | null,
+  head: ListNode | null,
   left: number,
   right: number
-): ListNode1 | null {
+): ListNode | null {
 
   let currentPosition = 1;
   let currentNode = head;
@@ -37,11 +46,11 @@ function reverseBetween1(
   }
 }
 
-let node11 = new ListNode1(1);
-let node22 = new ListNode1(2);
-let node33 = new ListNode1(3);
-let node44 = new ListNode1(4);
-let node55 = new ListNode1(5);
+let node11 = new ListNode(1);
+let node22 = new ListNode(2);
+let node33 = new ListNode(3);
+let node44 = new ListNode(4);
+let node55 = new ListNode(5);
 
 node11.next = node22;
 node22.next = node33;
@@ -52,10 +61,10 @@ node55.next = null;
 console.log(reverseBetween1(node11, 2, 4));
 
 function newFunc (
-  head: ListNode1 | null,
+  head: ListNode | null,
   left: number,
   right: number
-): ListNode1 | null {
+): ListNode | null {
 
   let currentPosition=1;
   let currentNode = head;
