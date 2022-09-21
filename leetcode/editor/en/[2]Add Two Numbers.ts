@@ -40,6 +40,8 @@
 // Related Topics Linked List Math Recursion 👍 18453 👎 3767
 
 //leetcode submit region begin(Prohibit modification and deletion)
+import { ListNode } from "./index";
+
 /**
  * Definition for singly-linked list.
  * class ListNode {
