@@ -277,6 +277,9 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       }
     }
 
+    /**
+     * Merge Array
+     */
     {   (
       function merge(nums1: number[], m: number, nums2: number[], n: number): void {
         // pointer for num1 & num2
@@ -302,6 +305,30 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       // )([4,5,6,0,0,0], 3, [1,2,3], 3)
       // )([1,0], 1, [2], 1)
     )([0], 0, [1], 1)}
+
+    /**
+     * [136] Single Number
+     */
+    {
+      (
+
+          function single_number(ary: number[]): number {
+            // let trackerObj = new Object();
+            let output = ary[0];
+            let scout = [output];
+
+            for (let i = 1; i < ary.length; i++) {
+              output ^= ary[i];
+              scout.push(output)
+            }
+
+            return output;
+          }
+
+      )([4, 1, 2, 1, 2])
+      // )([2,2,1]));
+      // )([1]));
+    }
 
     /**
      * Array Chunking

@@ -1,4 +1,4 @@
-import { ListNode1 } from "./reverse_Linked_List";
+import {ListNode} from "./editor/en";
 
 class ListNode4 {
   val: number
@@ -9,8 +9,7 @@ class ListNode4 {
   }
 }
 
-// @ts-ignore
-const linkedList: ListNode4 = [8,7,6,5,4,3,2,1].reduce((acc, val) => new ListNode4(val, acc), null);
+const linkedList: ListNode4 = [8,7,6,5,4,3,2,1].reduce((acc: ListNode, val) => new ListNode4(val, acc), null);
 
 let curr = linkedList, cycleNode;
 while(curr.next !== null) {
@@ -23,10 +22,10 @@ while(curr.next !== null) {
 curr.next = cycleNode;
 
 
-let n = new ListNode1(3);
-let n1 = new ListNode1(2);
-let n2 = new ListNode1(0);
-let n3 = new ListNode1(-4);
+let n = new ListNode(3);
+let n1 = new ListNode(2);
+let n2 = new ListNode(0);
+let n3 = new ListNode(-4);
 
 n.next = n1;
 n1.next = n2;
@@ -38,7 +37,7 @@ n3.next = n;
 
 //[3,2,0,-4]
 
-const detectCycle1 = (head: ListNode1 | null): ListNode1 | null => {
+const detectCycle1 = (head: ListNode | null): ListNode | null => {
   let hairNode = head;
   let tortNode = head;
 
@@ -67,7 +66,7 @@ const detectCycle1 = (head: ListNode1 | null): ListNode1 | null => {
   return p1
 };
 
-const detectCycle2 = function(head: ListNode1 | null): ListNode1 | null {
+const detectCycle2 = function(head: ListNode | null): ListNode | null {
   if (head == null || head.next == null) return null;
 
   let fast = head;
@@ -90,7 +89,7 @@ const detectCycle2 = function(head: ListNode1 | null): ListNode1 | null {
   return null;
 };
 
-const detectCycle3 = function(head: ListNode1 | null): ListNode1 | null {
+const detectCycle3 = function(head: ListNode | null): ListNode | null {
 
   let [turtle, rabbit] = [head, head];
 
