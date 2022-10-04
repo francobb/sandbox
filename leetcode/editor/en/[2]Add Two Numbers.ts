@@ -40,8 +40,6 @@
 // Related Topics Linked List Math Recursion 👍 18453 👎 3767
 
 //leetcode submit region begin(Prohibit modification and deletion)
-import { ListNode } from "./index";
-
 /**
  * Definition for singly-linked list.
  * class ListNode {
@@ -54,7 +52,23 @@ import { ListNode } from "./index";
  * }
  */
 function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
-return null
+  let beforeHead = new ListNode(0);
+  let head = beforeHead;
+  let carryOver = 0;
+
+  while( /*(l1 || l2)?.next ||*/ (l1 || l2)?.val >= 0 || carryOver ) {
+    let sum = carryOver;
+    if (l1?.val) sum += l1.val;
+    if (l2?.val) sum += l2.val;
+
+    carryOver = sum >= 10 ? 1 : 0;
+    head.next = new ListNode(sum % 10);
+
+    l1 = l1?.next;
+    l2 = l2?.next;
+    head = head.next;
+  }
+
+  return beforeHead.next;
 };
-export {}
 //leetcode submit region end(Prohibit modification and deletion)
