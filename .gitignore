@@ -4,3 +4,5 @@
 /leetcode/editor/en/*.js
 /leetcode/editor/en/**.js
 *.js
+/node_modules/
+/exercism/node_modules/
