@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "es5",
-    "downlevelIteration": true,
-    "lib": ["es2017", "dom"]
-  }
-}

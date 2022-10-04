@@ -1,4 +1,4 @@
-import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
+import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
 
   /**
    * [ARRAY]
@@ -362,23 +362,42 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
      *
      * */
     {
-      ((s) => {
-        let s_array = s.split("");
-        let count = 0;
-        // @ts-ignore
-        let map_count = new Set();
+      (function lengthOfLongestSubstring(s){
+        // way 1;
+        {
+          let s_array = s.split("");
+          let count = 0;
 
-        for (let index = 0; index < s_array.length; index++) {
-          let currentLetter = s_array[index];
-          if (map_count.has(currentLetter)) {
-            map_count.clear();
-            map_count.add(currentLetter);
-          } else {
-            map_count.add(currentLetter);
-            count = Math.max(map_count.size, count);
+          let map_count = new Set();
+          for (let index = 0; index < s_array.length; index++) {
+            let currentLetter = s_array[index];
+
+            if (map_count.has(currentLetter)) {
+              map_count.delete(currentLetter);
+              map_count.add(currentLetter);
+            } else {
+              map_count.add(currentLetter);
+              count = Math.max(map_count.size, count);
+            }
           }
+          return count;
         }
-        return count;
+
+        let set = new Map<string, number>();
+        let max = 0;
+
+        for (let lp = 0, rp = 0; rp < s.length; rp++){
+          let char = s[rp];
+
+          if (set.has(char) && set.get(char) >= lp) {
+            lp = set.get(char) + 1;
+          }
+
+          set.set(char, rp);
+          max = Math.max(max, rp-lp+1)
+        }
+
+        return max;
       })
       ("abcabcbb");
       // ("dvdf")
