@@ -36,10 +36,12 @@ function threeSum(nums: number[]): number[][] {
 
     while(leftP < rightP) {
       let sum = nums[leftP] + nums[rightP];
-      if (sum === t){
+      if (sum === t) {
         finalArr.push([nums[i], nums[leftP], nums[rightP]])
+
         while(nums[leftP] === nums[leftP+1]) leftP++;
         while(nums[rightP] === nums[rightP-1]) rightP--;
+
         leftP++;
         rightP--;
       } else if ( sum < t) {

@@ -71,14 +71,12 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function removeElement(nums: number[], val: number): number {
-  let [i, j] = [0, 0];
-  while(j < nums.length){
-    if (nums[j] != val){
-      nums[i++] = nums[j];
+  let idx = 0;
+  for (let jdx = 0; jdx < nums.length; jdx++) {
+    if( nums[jdx] !== val ) {
+      nums[idx++] = nums[jdx];
     }
-      j++
   }
-
-  return i;
+  return idx;
 };
 //leetcode submit region end(Prohibit modification and deletion)

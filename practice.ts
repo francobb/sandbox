@@ -1,4 +1,4 @@
-import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
+import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
 
   /**
    * [ARRAY]
@@ -33,7 +33,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
      *
      **/
     {
-      function findMedianSortedArrays1(nums1: number[], nums2: number[]): number {
+      const findMedianSortedArrays = (nums1: number[], nums2: number[]): number => {
         const l1 = nums1.length,
             l2 = nums2.length;
         const isEven = (l1 + l2) % 2 === 0;
@@ -59,8 +59,8 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
           }
         }
         return 0;
-      }
-      findMedianSortedArrays1([1,2], [3,4])
+      };
+      findMedianSortedArrays([1,2], [3,4])
     }
 
     /**
@@ -140,18 +140,18 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
         return numSet.size != nums.length;
       })([1,1,1,3,3,4,3,2,4,2])
 
-      function duplicateContains(nums: number[]){
+      const duplicateContains = (nums: number[]): boolean => {
         nums.sort()
         return nums.some((el, idx) => el === nums[idx + 1]);
-      }
-      function contains_Duplicate(nums: number[]): boolean {
+      };
+      const contains_Duplicate = (nums: number[]): boolean => {
         let hs = new Set();
         for (let i = 0; i < nums.length; i++) {
           if (hs.has(nums[i])) return true;
           if (!hs.has(nums[i])) hs.add(nums[i]);
         }
         return false;
-      }
+      };
       console.log(duplicateContains([1,1,1,3,3,4,3,2,4,2]));
     }
 
@@ -262,7 +262,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
      * [66] Plus One
      */
     {
-      function plusOne(digits: number[]): number[] {
+      const plusOne = (digits: number[]): number[] => {
         let co= true;
         let pointer = digits.length - 1;
         while(pointer >= 0 && co) {
@@ -274,37 +274,33 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
         co && digits.unshift(1);
         return digits
 
-      }
+      };
     }
 
     /**
-     * Merge Array
+     * [122] Best Time to Buy and Sell Stock II
      */
-    {   (
-      function merge(nums1: number[], m: number, nums2: number[], n: number): void {
-        // pointer for num1 & num2
-        let [lp, rp] = [0, 0];
-        let l;
+    {
+      const maxProfit = (prices: number[]): number => {
+        let m = 1;
+        let maxProfit = 0;
 
-        while(lp < m && m > 0) {
-          l = nums1[lp];
-          while (l >= nums2[rp]) {
-            nums1.splice(nums1.length-1, 1);
-            let item = nums2.splice(rp, 1)
-            nums1.splice(lp, 0, item[0])
-            lp++;
-            m++;
-          }
-
-          lp++
+        while(m < prices.length) {
+          // if current price is greater than prv price ? add that to value;
+          if (prices[m] > prices[m-1]) maxProfit += prices[m] - prices[m-1];
+          m++
         }
-        nums1.splice(lp, nums2.length, ...nums2);
-        console.log({nums1});
-      }
-      // )([1,2,3,0,0,0], 3, [2,5,6], 3)
-      // )([4,5,6,0,0,0], 3, [1,2,3], 3)
-      // )([1,0], 1, [2], 1)
-    )([0], 0, [1], 1)}
+
+        return maxProfit;
+      };
+
+      // )( [1,2,3,4,5])
+      // )( [7,6,4,3,1])
+      // )( [6,1,3,2,4,7])
+      // )( [2,1,2,0,1])
+      // )( [2,1,4,5,2,9,7])
+      maxProfit([7,1,5,3,6,4])
+    }
 
     /**
      * [136] Single Number
@@ -329,6 +325,36 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
       // )([2,2,1]));
       // )([1]));
     }
+
+    /**
+     * Merge Array
+     */
+    {
+      (
+        function merge(nums1: number[], m: number, nums2: number[], n: number): void {
+          // pointer for num1 & num2
+          let [lp, rp] = [0, 0];
+          let l;
+
+          while(lp < m && m > 0) {
+            l = nums1[lp];
+            while (l >= nums2[rp]) {
+              nums1.splice(nums1.length-1, 1);
+              let item = nums2.splice(rp, 1)
+              nums1.splice(lp, 0, item[0])
+              lp++;
+              m++;
+            }
+
+            lp++
+          }
+          nums1.splice(lp, nums2.length, ...nums2);
+          console.log({nums1});
+        }
+        // )([1,2,3,0,0,0], 3, [2,5,6], 3)
+        // )([4,5,6,0,0,0], 3, [1,2,3], 3)
+        // )([1,0], 1, [2], 1)
+      )([0], 0, [1], 1)}
 
     /**
      * Array Chunking
@@ -489,7 +515,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
       ((s: string, t: string): boolean => {
 
         if (!s || !t) return false
-        return [...s].sort().join("").replace("/[^\w]/g", "").toLowerCase() === [...t].sort().join("").replace("/[^\w]/g", "").toLowerCase()
+        return [...Array.from(s)].sort().join("").replace("/[^\w]/g", "").toLowerCase() === [...Array.from(t)].sort().join("").replace("/[^\w]/g", "").toLowerCase()
 
       })("anagram", "nagaram")
 
@@ -1291,7 +1317,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
       })([1, 2], [3, 4]);
       // })([1, 2, 9, 10], [-1, 0, 0, 2]);
 
-      function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
+      const findMedianSortedArrays = (nums1: number[], nums2: number[]): number => {
         const l1 = nums1.length,
           l2 = nums2.length;
         const isEven = (l1 + l2) % 2 === 0;
@@ -1317,7 +1343,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
           }
         }
         return 0;
-      }
+      };
 
     }
 
@@ -1488,7 +1514,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
      *
      * */
     {
-      function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+      const addTwoNumbers = (l1: ListNode | null, l2: ListNode | null): ListNode | null => {
         let p1 = l1, p2 = l2;
         let carryOver = 0;
         let preHead = new ListNode(0);
@@ -1514,7 +1540,7 @@ import { ListNode, NodeImpl, simpleNode, SimpleNode, treeNode, TreeNode } from "
         }
 
         return preHead.next;
-      };
+      };;
       addTwoNumbers(l2, l1)
 
     }

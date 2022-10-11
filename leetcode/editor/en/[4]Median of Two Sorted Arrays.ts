@@ -58,7 +58,6 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-    console.log("HERE");
     const l1 = nums1.length,
         l2 = nums2.length;
     const isEven = (l1 + l2) % 2 === 0;

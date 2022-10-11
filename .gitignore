@@ -6,3 +6,4 @@
 *.js
 /node_modules/
 /exercism/node_modules/
+/**/*/.env

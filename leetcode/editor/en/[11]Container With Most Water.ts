@@ -52,21 +52,14 @@ function maxArea(height: number[]): number {
   let maximumArea = 0;
   let p1 = 0;
   let p2 = height.length - 1;
+
   // find two highest values in array
   while (p1 < p2) {
-    // max area is min of two highest times difference of indices
-    let yPos = Math.min(height[p1], height[p2]);
-    let xPos = p2 - p1;
-    let currentArea = xPos * yPos;
-    maximumArea = Math.max(maximumArea, currentArea);
-
-    if (height[p1] <= height[p2]) {
-      p1++;
-    } else {
-      p2--;
-    }
+    // max area is min of two highest times difference of indices; A = x * y
+    maximumArea = Math.max(maximumArea, (p2 - p1) * (Math.min(height[p1], height[p2])));
+    // move the pointer of the smallest element
+    height[p1] <= height[p2] ? p1++ : p2--;
   }
-
   return maximumArea;
 }
 //leetcode submit region end(Prohibit modification and deletion)
