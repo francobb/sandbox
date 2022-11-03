@@ -63,17 +63,23 @@ const parens = {
 
 function isValid(s: string): boolean {
 
+  const isOpeningBracket = (itm) => parens[itm]
+
   if (s.length === 0) return true
 
   const stack = [];
 
   for (let i = 0; i < s.length; i++){
-    if (parens[s[i]]){
-      stack.push(s[i])
+    let currentParentheses = s[i];
+
+    if (isOpeningBracket(currentParentheses)){
+      stack.push(currentParentheses)
     } else {
-      const leftBracket = stack.pop();
-      const matchingBracket = parens[leftBracket];
-      if ( s[i] !== matchingBracket ) return false
+
+      const leftBracket = stack.pop(); // take 1st out of stack
+      const matchingBracket = parens[leftBracket]; // get value from lib/map
+
+      if ( currentParentheses !== matchingBracket ) return false
     }
   }
 

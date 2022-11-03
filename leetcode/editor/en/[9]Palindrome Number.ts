@@ -46,20 +46,16 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function isPalindrome(x: number): boolean {
-  let xS1 = "" + x;
-  let arr = [...xS1.split("")];
-  let xS2 = Array.from(String(x));
-  let xN2 = Array.from(String(x), Number);
+  var reverse = 0;
+  var copy = x;
 
+  while (copy > 0) {
+    const digit = copy % 10;
 
-  // let numArr = [...x];
-  // if (x < 2) return false;
-  let [lp, rp] = [0, arr.length - 1];
-  while (lp <= rp) {
-    if (arr[lp] != arr[rp]) return false;
-    lp++;
-    rp--;
+    reverse = reverse * 10 + digit;
+    copy = ~~(copy / 10); //Math.floor(copy / 10)
   }
 
-  return true;};
+  return reverse == x;
+};
 //leetcode submit region end(Prohibit modification and deletion)

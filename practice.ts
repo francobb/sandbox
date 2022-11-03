@@ -275,6 +275,32 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
         return digits
 
       };
+
+      (
+        function plus_one(digits: number[]): number[] {
+          if ( +digits.join('') < Number.MAX_SAFE_INTEGER ) {
+            return Array.from((+digits.join('') + 1).toString(), (n) => Number(n));
+          } else {
+            let idx = 1;
+            let carryOver = 0;
+            while(idx <= digits.length) {
+              if (digits[digits.length-idx] === 9) {
+                digits[digits.length-idx] = 0;
+                carryOver=1;
+                idx++;
+              } else {
+                digits[digits.length-idx] += (carryOver-- || 1);
+                return digits;
+              }
+            }
+
+            if (carryOver) digits.unshift(carryOver--);
+            return digits;
+          }
+        }
+        // )( [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9])
+      )( [6,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,5,4,3])
+      // )( [5,2,2,6,5,7,1,9,0,3,8,6,8,6,5,2,1,8,7,9,8,3,8,4,7,2,5,8,9])
     }
 
     /**
@@ -324,6 +350,58 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       )([4, 1, 2, 1, 2])
       // )([2,2,1]));
       // )([1]));
+    }
+
+    /**
+     * [189] Rotate Array
+     *
+     */
+    {
+      const rotate = (nums: number[], k: number): void => {
+        // take last k elements and unshift them to the front
+        nums.unshift(...nums.splice(-(k % nums.length)))
+
+        // move last element to the front of the array k times.
+        for (let i = 0; i < k; i++) {
+          nums.unshift(...nums.splice(nums.length-1, 1))
+        }
+      };
+
+      // rotate([-1,-100,3,99],  2)
+      // rotate([1,2,3,4,5,6,7], 3)
+    }
+
+    /**
+     *
+     * [645] Set Mismatch
+     *
+     */
+    {
+      (
+        function findErrorNums(nums: number[]): number[] {
+          let set = new Array(nums.length)
+          let dup = 0
+
+          // find dupe; add nums to SET
+          for(let i = 0; i < nums.length; i++) {
+            if (set[nums[i] - 1]) dup = nums[i]
+            set[nums[i] - 1] = true
+          }
+
+          // find missing number in SET
+          for(let i = 1; i < nums.length; i++) {
+            if(!set[i-1]) return [dup, i]
+          }
+
+          return [dup, nums.length]
+        }
+      )(  [1,5,3,2,2,7,6,4,8,9])
+      // )(  [8,7,3,5,3,6,1,4])
+      // )(  [3,2,2])
+      // )(  [1,2,2,4])
+      // )(  [2,2])
+      // )(  [37,62,43,27,12,66,36,18,39,54,61,65,47,32,23,2,46,8,4,24,29,38,63,39,25,11,45,28,44,52,15,30,21,7,57,49,1,59,58,14,9,40,3,42,56,31,20,41,22,50,13,33,6,10,16,64,53,51,19,17,48,26,34,60,35,5])
+      // )(  [33,86,39,20,22,99,75,1,31,58,35,13,48,66,80,82,94,14,50,93,43,63,98,95,8,70,44,68,74,17,59,36,5,23,7,69,3,21,30,92,78,73,77,54,47,42,40,34,64,11,51,4,57,15,16,28,12,29,62,4,91,18,83,45,38,56,2,84,27,6,41,61,88,52,71,90,67,79,76,24,37,96,19,97,53,26,87,49,9,85,32,72,10,89,55,46,81,65,60])
     }
 
     /**
@@ -431,58 +509,85 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
-     * [844] backspace string compare ✅
      *
-     * *****/
+     * [9] Palindrome number
+     *
+     **/
     {
-      ((s: string, l: string): boolean => {
-        let sPointer = 0;
-        let rPointer = 0;
-        let newS = [];
-        let newL = [];
-        while (sPointer < s.length || rPointer < l.length) {
-          if (s[sPointer] === "#") {
-            newS.pop();
-          } else {
-            if (s[sPointer]) newS.push(s[sPointer]);
-          }
+      (function is_palindrome(x: number): boolean {
+        var reverse = 0;
+        var copy = x;
 
-          if (l[rPointer] === "#") {
-            newL.pop();
-          } else {
-            if (l[rPointer]) newL.push(l[rPointer]);
-          }
+        while (copy > 0) {
+          const digit = copy % 10;
 
-          sPointer++;
-          rPointer++;
+          reverse = reverse * 10 + digit;
+          copy = ~~(copy / 10); //Math.floor(copy / 10)
         }
-        return newS !== newL;
-      }
-      )("a#c", "b");
-      // )("ab#c", "ab#c")
-      // )("a##c", "#a#c")
-      // )("rjhbpvh", "rm#jhbpvh")
+
+        return reverse == x;
+
+
+
+
+      })(151)
     }
 
     /**
-     * [344] String reverse ✅
-     *
-     * *****/
+     * [14] Longest Common Prefix
+     */
     {
-      (function(str: string) {
-        // version one
-        let reversed = '';
-        for (let char of str) {
-          reversed = char + reversed
-          console.info({ reversed });
-        }
+      //   function longestCommonPrefix(strs: string[]): string {
+      //     if (strs.length == 0) return ""
+      //
+      //     let prefix = strs[0]; // compare to first element in string
+      //
+      //     //loop through array
+      //     strs.forEach((wrd, i) => {
+      //       if (wrd==prefix) return;
+      //       //if prefix is not in the current word
+      //       while(strs[i].indexOf(prefix) != 0) {
+      //         prefix=prefix.slice(0, -1);  // take out a letter from prefix
+      //       }
+      //     })
+      //     return prefix;
+      //     // })(["flower","flow","flight"])
+      //   // })(["dog", "racecar", "car"]
+      // }
+    }
 
-        // version two
-        str.split("").reduce((rev, char) => char + rev, '')
+    /**
+     *
+     * [58] Length of last word
+     *
+     **/
+    {
+      (function lengthOfLastWord(s: string): number {
+        let arr = s.split(" ").filter(v => v);
+        let l = arr[arr.length - 1].length;
+        return l;
+      })(" fly me to the moon ")
 
-        // version three
-        return str.split('').reverse().join('');
-      })("reverse")
+    }
+
+    /**
+     * [125] Valid Palindrome
+     *
+     **/
+    {
+      (function is_palindrome1(str: string): boolean {
+        // turn number into array
+        return str.split("").every((c, i) => {
+          return c === str.charAt(str.length - i - 1);
+        })
+      })("abba");
+
+      (function is_palindrome2(str: string): boolean {
+        // turn number into array
+        let rStr = str.split("").reverse().join("");
+        return str === rStr;
+      })("abba");
+
     }
 
     /**
@@ -522,47 +627,6 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
-     *
-     * [09] Palindrome number
-     *
-     **/
-    {
-      (function is_palindrome(x: number): boolean {
-        // turn number into array
-        let xS1 = "" + x;
-        let arr = [...xS1.split("")];
-        // let xS2 = Array.from(String(x));
-        // let xN2 = Array.from(String(x), Number);
-
-
-        // let numArr = [...x];
-        // if (x < 2) return false;
-        let [lp, rp] = [0, arr.length - 1];
-        while (lp <= rp) {
-          if (arr[lp] != arr[rp]) return false;
-          lp++;
-          rp--;
-        }
-
-        return true;
-      })(151)
-    }
-
-    /**
-     *
-     * [58] Length of last word
-     *
-     **/
-    {
-      (function lengthOfLastWord(s: string): number {
-        let arr = s.split(" ").filter(v => v);
-        let l = arr[arr.length - 1].length;
-        return l;
-      })(" fly me to the moon ")
-
-    }
-
-    /**
      * [290] Word Pattern
      */
     {
@@ -598,26 +662,58 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
-     * [14] Longest Common Prefix
-     */
+     * [344] String reverse ✅
+     *
+     * *****/
     {
-      //   function longestCommonPrefix(strs: string[]): string {
-      //     if (strs.length == 0) return ""
-      //
-      //     let prefix = strs[0]; // compare to first element in string
-      //
-      //     //loop through array
-      //     strs.forEach((wrd, i) => {
-      //       if (wrd==prefix) return;
-      //       //if prefix is not in the current word
-      //       while(strs[i].indexOf(prefix) != 0) {
-      //         prefix=prefix.slice(0, -1);  // take out a letter from prefix
-      //       }
-      //     })
-      //     return prefix;
-      //     // })(["flower","flow","flight"])
-      //   // })(["dog", "racecar", "car"]
-      // }
+      (function(str: string) {
+        // version one
+        let reversed = '';
+        for (let char of str) {
+          reversed = char + reversed
+          console.info({ reversed });
+        }
+
+        // version two
+        str.split("").reduce((rev, char) => char + rev, '')
+
+        // version three
+        return str.split('').reverse().join('');
+      })("reverse")
+    }
+
+    /**
+     * [844] backspace string compare ✅
+     *
+     * *****/
+    {
+      ((s: string, l: string): boolean => {
+          let sPointer = 0;
+          let rPointer = 0;
+          let newS = [];
+          let newL = [];
+          while (sPointer < s.length || rPointer < l.length) {
+            if (s[sPointer] === "#") {
+              newS.pop();
+            } else {
+              if (s[sPointer]) newS.push(s[sPointer]);
+            }
+
+            if (l[rPointer] === "#") {
+              newL.pop();
+            } else {
+              if (l[rPointer]) newL.push(l[rPointer]);
+            }
+
+            sPointer++;
+            rPointer++;
+          }
+          return newS !== newL;
+        }
+      )("a#c", "b");
+      // )("ab#c", "ab#c")
+      // )("a##c", "#a#c")
+      // )("rjhbpvh", "rm#jhbpvh")
     }
 
     /**
@@ -693,27 +789,6 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
         return ans
       })("MCMXCIV")
-    }
-
-    /**
-     *
-     *  [125] Valid Palindrome
-     *
-     **/
-    {
-      (function is_palindrome1(str: string): boolean {
-        // turn number into array
-        return str.split("").every((c, i) => {
-          return c === str.charAt(str.length - i - 1);
-        })
-      })("abba");
-
-      (function is_palindrome2(str: string): boolean {
-        // turn number into array
-        let rStr = str.split("").reverse().join("");
-        return str === rStr;
-      })("abba");
-
     }
 
     /**
@@ -1545,3 +1620,41 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
     }
   }
+
+//------------------------------------------------
+
+/**
+ *
+ * [MISC]
+ *
+ **/
+{
+  /**
+   * call/stack order example
+   *
+   * *****/
+  {
+    const foo = i => {
+      if (i < 0) return;
+      console.log("begin: " + i);
+      foo(i - 1);
+      console.log("end: " + i);
+    };
+  }
+
+  /**
+   * Fib
+   *
+   * **/
+  {
+    const fib = (n) => {
+      if (n >= 3) {
+        return fib(n - 1) + fib(n - 2);
+      }
+      else {
+        return 1;
+      }
+    };
+  }
+
+}
