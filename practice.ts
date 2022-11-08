@@ -372,6 +372,26 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
+     * [219] contains duplicate II
+     *
+     */
+    {
+      (
+        function containsNearbyDuplicate(nums: number[], k: number): boolean {
+          let map = {};
+          for(let idx=0; idx<nums.length; idx++){
+            if( map[nums[idx]] >= 0 ){
+              if( idx - map[nums[idx]] <= k ) return true;
+            }
+            map[nums[idx]] = idx;
+          }
+
+          return false;
+        }
+      )([1,0,1,1], 3)
+    }
+
+    /**
      *
      * [645] Set Mismatch
      *
