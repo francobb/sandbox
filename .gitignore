@@ -8,3 +8,4 @@
 /exercism/node_modules/
 /**/*/.env
 /out
+pract.ts

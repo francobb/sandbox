@@ -56,6 +56,6 @@ function twoSum(nums: number[], target: number): number[] {
         } else {
             map.set(current, index);
         }
-
-    }}
+    }
+}
 //leetcode submit region end(Prohibit modification and deletion)
