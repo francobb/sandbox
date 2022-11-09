@@ -326,6 +326,21 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       // )( [2,1,2,0,1])
       // )( [2,1,4,5,2,9,7])
       maxProfit([7,1,5,3,6,4])
+
+      const max_Profit = (prices: number[]): number => {
+        // convert to map
+        let min = prices[0];
+        let max = 0;
+
+        for (const [index, price ] of Array.from(prices.entries())) {
+          min = Math.min(price, min);
+          max = Math.max(max, price-min);
+        }
+
+        return max;
+      };;
+
+      console.log(max_Profit([7,1,5,3,6,4]));
     }
 
     /**
@@ -547,9 +562,6 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
         return reverse == x;
 
-
-
-
       })(151)
     }
 
@@ -734,6 +746,77 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       // )("ab#c", "ab#c")
       // )("a##c", "#a#c")
       // )("rjhbpvh", "rm#jhbpvh")
+
+
+      const backspaceCompare1 = (s: string, t: string): boolean => {
+        if (!s && !t) {
+          return true;
+        }
+        if ((!s && t) || (!t && s)) {
+          return false;
+        }
+
+        const goThroughIt = (string: string) => {
+          const localArray = [];
+          for (let i = 0; i < string.length; i++) {
+            if (string[i] === "#") {
+              localArray.pop();
+              continue;
+            }
+            localArray.push(string[i]);
+          }
+          // console.log(localArray);
+          return localArray;
+        };
+
+
+        return goThroughIt(s).toString() === goThroughIt(t).toString();
+      };
+      console.log(backspaceCompare1("ab##", "c#d#"));
+      console.log(backspaceCompare1("ab#c", "ad#c"));
+      console.log(backspaceCompare1("a##c", "#a#c"));
+      console.log(backspaceCompare1("a#c", "b"));
+
+      const back_space_compare = (s1: string, s2: string): boolean => {
+        let recurse = (counter: number, pointer: number, strng: string) => {
+          while (counter > 0) {
+            counter--;
+            pointer--;
+
+            if (strng[pointer] === "#") {
+              counter += 2;
+            }
+          }
+          return pointer;
+        };
+        for (
+          let [s1p, s2p] = [s2.length - 1, s1.length - 1];
+          s1p > 0 && s2p > 0;
+          s1p-- && s2p--
+        ) {
+
+          if (s1[s1p] === "#") {
+            let count1 = 2;
+
+            s1p = recurse(count1, s1p, s1);
+          }
+
+          if (s2[s2p] === "#") {
+            let steps = 2;
+
+            s2p = recurse(steps, s2p, s2);
+          }
+
+          if (s2[s2p] != s1[s1p]) {
+            return false;
+          }
+        }
+        return true;
+      };
+      console.log(back_space_compare("ab##", "c#d#"));
+      console.log(back_space_compare("ab#c", "ad#c"));
+      console.log(back_space_compare("a##c", "#a#c"));
+      console.log(back_space_compare("a#c", "b"));
     }
 
     /**
@@ -1330,6 +1413,32 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       // console.log(otherBinary([1], 1));
       // console.log(realBinary([1], 1));
       console.log(firstAndLastPositionOfTarget([1, 3, 5, 5, 5, 5, 8, 9], 5));
+    }
+
+    /**
+     * is Valid Binary Search Tree
+     *
+     */
+    {
+      const isValidBST = (root: TreeNode | null): boolean => {
+        if(!root)return null
+
+        let dfs = (node: TreeNode, min: number, max: number) => {
+          if(min > node.val || node.val > max) {
+            return false;
+          }
+          if(node.left){
+            if(!dfs(node.left, min, node.val)) return false
+          }
+          if(node.right){
+            if(!dfs(node.right, node.val, max)) return false
+          }
+          return true;
+        };
+
+        return dfs(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+
+      };;
     }
 
   }

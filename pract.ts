@@ -1,8 +1,6 @@
-// const {performance} = require('perf_hooks');
+// noinspection BadExpressionStatementJS,JSVoidFunctionReturnValueUsed
 
-// ________________________________________________________________________
-
-// todo: FINISH THIS
+// TODO: FINISH THIS
 // console.log(
 //   function expandFromCenter(str: string, left: number, right: number) {
 //     if (str == null || left > right ) return 0
@@ -15,15 +13,6 @@
 //     return right - left - 1;
 //   }
 // )
-
-
-import { simpleNode, SimpleNode } from "./leetcode/editor/en";
-
-console.log(
-  (function ()  {
-
-  })()
-)
 
 // NEED EXPLANATION
 // console.log(
@@ -41,3 +30,27 @@ console.log(
 //   // })(28)
 //   // })(26)
 // )
+
+// ________________________________________________________________________
+
+console.log(
+
+  (
+    function isPalindrome(x: number): boolean {
+      var reverse = 0;
+      var copy = x;
+
+      while (copy > 0) {
+        const digit = copy % 10;
+
+        reverse = reverse * 10 + digit;
+        copy = ~~(copy / 10); //Math.floor(copy / 10)
+      }
+
+      return reverse == x;
+    }
+  )(121)
+)
+
+
+console.log();
