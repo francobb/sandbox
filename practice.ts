@@ -407,6 +407,34 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
+     * [350] Intersection of two arrays II
+     *
+     */
+    {
+      (
+        function intersect(nums1: number[], nums2: number[]): number[] {
+          let finalArray = [];
+          if (nums1.length < nums2.length){
+            let temp = nums1;
+            nums1 = nums2;
+            nums2 = temp;
+          }
+
+          for (let i =0; i < nums1.length; i++) {
+            let cn = nums1[i]
+            if(nums2.includes(cn)) {
+              finalArray.push(cn)
+              nums2.splice(nums2.indexOf(cn), 1)
+            }
+          }
+
+          return finalArray
+        }
+        // )([4,9,5], [9,4,9,8,4])
+      )([1,2,2,1], [2,2])
+    }
+
+    /**
      *
      * [645] Set Mismatch
      *
@@ -902,6 +930,26 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
         let p = n.toString().split('').reverse().join('');
         return parseInt(p) * Math.sign(n);
       })(-51)
+
+      {
+        (
+          function reverse(x: number): number {
+            let reverse = 0;
+            let copy = x;
+
+            while (copy > 0) {
+              let dg = copy % 10;
+              reverse = reverse * 10 + dg;
+              copy = ~~(copy / 10);
+            }
+
+            if (reverse > Number.MAX_SAFE_INTEGER)
+
+              if (x > 0) return reverse;
+              else return -reverse;
+          }
+        )(3214);
+      }
     }
 
     /**
@@ -1785,5 +1833,4 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       }
     };
   }
-
 }
