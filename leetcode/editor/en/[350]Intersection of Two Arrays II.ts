@@ -44,19 +44,20 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function intersect(nums1: number[], nums2: number[]): number[] {
-  // which num is bigger?
   let finalArray = [];
+
   if (nums1.length < nums2.length){
-    let temp = nums1;
-    nums1 = nums2;
-    nums2 = temp;
+    [nums1, nums2] = [nums2, nums1]; // flip arrays
   }
 
-  for (let i =0; i < nums1.length; i++) {
-    let cn = nums1[i]
+  for (let i = 0; i < nums1.length; i++) {
+    let cn = nums1[i] // current number
+
+    // check if number in bigger array exists in smaller one
     if(nums2.includes(cn)) {
-      finalArray.push(cn)
-      nums2.splice(nums2.indexOf(cn), 1)
+
+      finalArray.push(cn) // add matching number to array
+      nums2.splice(nums2.indexOf(cn), 1) // cut number out of array
     }
   }
 

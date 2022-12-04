@@ -68,10 +68,10 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function removeDuplicates(nums: number[]): number {
-  let i = 0;
-  for (let j = 0; j < nums.length; j++) {
-    if (nums[j] != nums[i]) nums[++i] = nums[j];
+  let p = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[p] != nums[i]) nums[++p] = nums[i];
   }
-  return ++i;
+  return ++p;
 };
 //leetcode submit region end(Prohibit modification and deletion)

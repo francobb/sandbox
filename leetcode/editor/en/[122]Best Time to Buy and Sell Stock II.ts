@@ -52,15 +52,14 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function maxProfit(prices: number[]): number {
-  let m = 1;
+  let p = 1;
   let maxProfit = 0;
 
-  while(m < prices.length) {
-    // if current price is greater than prv price ? add that to value;
-    if (prices[m] > prices[m-1]) maxProfit += prices[m] - prices[m-1];
-    m++
+  while(p < prices.length){
+    if(prices[p] > prices[p-1]) maxProfit += prices[p] - prices[p-1];
+    p++;
   }
 
-  return maxProfit;
+  return maxProfit
 };
 //leetcode submit region end(Prohibit modification and deletion)
