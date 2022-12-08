@@ -153,6 +153,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
         return false;
       };
       console.log(duplicateContains([1,1,1,3,3,4,3,2,4,2]));
+      console.log(contains_Duplicate([1,1,1,3,3,4,3,2,4,2]));
     }
 
     /**
@@ -263,7 +264,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
      */
     {
       const plusOne = (digits: number[]): number[] => {
-        let co= true;
+        let co = true;
         let pointer = digits.length - 1;
         while(pointer >= 0 && co) {
           digits[pointer]++
@@ -284,6 +285,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
             let idx = 1;
             let carryOver = 0;
             while(idx <= digits.length) {
+
               if (digits[digits.length-idx] === 9) {
                 digits[digits.length-idx] = 0;
                 carryOver=1;
@@ -407,6 +409,27 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
+     * [349] Intersection of Two Arrays
+     */
+    {
+      ((nums1: number[], nums2: number[]): number[] => {
+        let counter = 0;
+        let final = [];
+
+        while (counter < nums1.length) {
+          if (nums2.includes(nums1[counter]) && !final.includes(nums1[counter])){
+            final.push(nums1[counter]);
+            nums2.splice(nums2.indexOf(nums1[counter]), 1);
+          }
+
+          counter++;
+        }
+
+        return final;
+      })([1,2,2,1],[2,2])
+    }
+
+    /**
      * [350] Intersection of two arrays II
      *
      */
@@ -430,7 +453,6 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
           return finalArray
         }
-        // )([4,9,5], [9,4,9,8,4])
       )([1,2,2,1], [2,2])
     }
 
@@ -585,7 +607,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
           const digit = copy % 10;
 
           reverse = reverse * 10 + digit;
-          copy = ~~(copy / 10); //Math.floor(copy / 10)
+          copy = ~~(copy / 10); // Math.floor(copy / 10)
         }
 
         return reverse == x;
@@ -597,23 +619,23 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
      * [14] Longest Common Prefix
      */
     {
-      //   function longestCommonPrefix(strs: string[]): string {
-      //     if (strs.length == 0) return ""
-      //
-      //     let prefix = strs[0]; // compare to first element in string
-      //
-      //     //loop through array
-      //     strs.forEach((wrd, i) => {
-      //       if (wrd==prefix) return;
-      //       //if prefix is not in the current word
-      //       while(strs[i].indexOf(prefix) != 0) {
-      //         prefix=prefix.slice(0, -1);  // take out a letter from prefix
-      //       }
-      //     })
-      //     return prefix;
-      //     // })(["flower","flow","flight"])
-      //   // })(["dog", "racecar", "car"]
-      // }
+        function longestCommonPrefix(strs: string[]): string {
+          if (strs.length == 0) return ""
+
+          let prefix = strs[0]; // compare to first element in string
+
+          //loop through array
+          strs.forEach((wrd, i) => {
+            if (wrd==prefix) return;
+            //if prefix is not in the current word
+            while(strs[i].indexOf(prefix) != 0) {
+              prefix=prefix.slice(0, -1);  // take out a letter from prefix
+            }
+          })
+          return prefix;
+          // })(["flower","flow","flight"])
+        // })(["dog", "racecar", "car"]
+      }
     }
 
     /**
@@ -845,6 +867,32 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       console.log(back_space_compare("ab#c", "ad#c"));
       console.log(back_space_compare("a##c", "#a#c"));
       console.log(back_space_compare("a#c", "b"));
+    }
+
+    /**
+     *
+     * [1704] Determine if halves are alike ✅
+     */
+    {
+      ((s: string) => {
+        let vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+        // split in half
+        let [[p1, pl], [p2, pr]] = [[0, 0], [s.length-1, 0]];
+
+        // let p1 = 0;
+        // let p2 = s.length-1;
+        // let pl = 0;
+        // let pr = 0;
+
+        while(p1 <= p2) {
+          if (vowels.includes(s[p1])) pl++
+          if (vowels.includes(s[p2])) pr++
+          p1++;
+          p2--;
+        }
+
+        return pl === pr;
+      })("textbook")
     }
 
     /**
@@ -1742,7 +1790,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
 
     /**
-     * Reverse Linked List ✅
+     * [206] Reverse Linked List 1✅
      *
      * */
     {
@@ -1759,6 +1807,50 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
         return prev; // Return what we checked
       };
       console.log(reverseList([1, 2, 3, 4, 5].reduce((acc: ListNode, val: number) => new ListNode(val, acc), null)));
+    }
+
+    /**
+     * [92] Reverse Linked List II✅
+     *
+     * */
+    {
+      const reverseBetween = (
+        head: ListNode | null,
+        left: number,
+        right: number
+      ): ListNode | null => {
+
+        let currentPosition = 1;
+        let currentNode = head;
+        let start = head;
+
+        while (currentPosition < left) {
+          start = currentNode;
+          currentNode = currentNode.next;
+          currentPosition++;
+        }
+
+        let newList = null;
+        let tail = currentNode;
+
+        while (currentPosition >= left && currentPosition <= right) {
+          const next = currentNode.next;
+          currentNode.next = newList;
+          newList = currentNode;
+          currentNode = next;
+          currentPosition++;
+        }
+
+        start.next = newList;
+        tail.next = currentNode;
+
+        if (left > 1) {
+          return head;
+        } else {
+          return newList;
+        }
+      };
+      reverseBetween([1, 2, 3, 4, 5].reduce((acc: ListNode, val: number) => new ListNode(val, acc), null), 2, 5)
     }
 
     /**
