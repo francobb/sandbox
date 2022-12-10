@@ -594,6 +594,29 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
+     * [7] Reverse Integer
+     */
+    {
+      function reverse(x: number): number {
+        let rev=0;
+        let copy = x;
+
+        // reverse
+        while(copy != 0){
+          let digit = copy % 10;
+          rev = rev*10+digit;
+          copy = ~~(copy/10);
+        }
+
+        // check if its outside range
+        return rev > (Math.pow(2, 31) - 1) ||
+          rev < (Math.pow(2, 31) * -1)
+            ? 0
+            : rev;
+      }
+    }
+
+    /**
      *
      * [9] Palindrome number
      *
@@ -765,6 +788,28 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
+     * [387] First Unique Character in a String
+     *
+     */
+    {
+      (
+        function firstUniqChar(s: string): number {
+          let set = new Set();
+          for (let i = 0; i < s.length; i++) {
+            let current=s[i];
+
+            if (!set.has(current) && s.substring(i+1).search(current) < 0 ){
+              return i;
+            }
+
+            set.add(current);
+          }
+          return -1
+        }
+      )("leetcode")
+    }
+
+    /**
      * [844] backspace string compare ✅
      *
      * *****/
@@ -898,7 +943,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     /**
      * Roman Integer ✅
      *
-     * *****/
+     **/
     {
       let rmMap = new Map<string, number>();
       rmMap.set("I", 1)
@@ -1087,7 +1132,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       })("([)]");
     }
   }
-//------------------------------------------------
+  //------------------------------------------------
 
   /**
    *
@@ -1330,7 +1375,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       }
     }
   }
-//------------------------------------------------
+  //------------------------------------------------
 
   /**
    *
@@ -1538,7 +1583,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
   }
-//------------------------------------------------
+  //------------------------------------------------
 
   /**
    *
@@ -1743,7 +1788,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       };
     }
   }
-//------------------------------------------------
+  //------------------------------------------------
 
   /**
    *
@@ -1890,39 +1935,38 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
   }
 
-//------------------------------------------------
-
-/**
- *
- * [MISC]
- *
- **/
-{
+  //------------------------------------------------
   /**
-   * call/stack order example
    *
-   * *****/
+   * [MISC]
+   *
+   **/
   {
-    const foo = i => {
-      if (i < 0) return;
-      console.log("begin: " + i);
-      foo(i - 1);
-      console.log("end: " + i);
-    };
-  }
+    /**
+     * call/stack order example
+     *
+     * *****/
+    {
+      const foo = i => {
+        if (i < 0) return;
+        console.log("begin: " + i);
+        foo(i - 1);
+        console.log("end: " + i);
+      };
+    }
 
-  /**
-   * Fib
-   *
-   * **/
-  {
-    const fib = (n) => {
-      if (n >= 3) {
-        return fib(n - 1) + fib(n - 2);
-      }
-      else {
-        return 1;
-      }
-    };
+    /**
+     * Fib
+     *
+     * **/
+    {
+      const fib = (n) => {
+        if (n >= 3) {
+          return fib(n - 1) + fib(n - 2);
+        }
+        else {
+          return 1;
+        }
+      };
+    }
   }
-}

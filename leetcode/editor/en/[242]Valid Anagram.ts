@@ -29,6 +29,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 function isAnagram(s: string, t: string): boolean {
   if (!s||!t) return false
-  return [...s].sort().join("").replace("/[^\w]/g", "").toLowerCase() === [...t].sort().join("").replace("/[^\w]/g", "").toLowerCase()
+  return [...s].sort().join("").replace("/[^\w]/g", "").toLowerCase()
+      === [...t].sort().join("").replace("/[^\w]/g", "").toLowerCase()
 };
 //leetcode submit region end(Prohibit modification and deletion)
