@@ -47,14 +47,14 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 function twoSum(nums: number[], target: number): number[] {
     let map = new Map();
-    for (let index = 0; index < nums.length; index++){
-        let current = nums[index];
+
+    for (let index = 0; index < nums.length; index++) {
         let diff = target - nums[index];
 
         if (map.has(diff)){
             return [map.get(diff), index];
         } else {
-            map.set(current, index);
+            map.set(nums[index], index);
         }
     }
 }

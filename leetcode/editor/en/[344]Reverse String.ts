@@ -28,7 +28,6 @@
  Do not return anything, modify s in-place instead.
  */
 function reverseString(s: string[]): void {
-
   let leftPointer = 0, rightPointer = s.length -1;
 
   while (leftPointer < rightPointer) {
@@ -39,7 +38,5 @@ function reverseString(s: string[]): void {
     rightPointer--;
     leftPointer++
   }
-
-  // s=s.reverse()
 };
 //leetcode submit region end(Prohibit modification and deletion)

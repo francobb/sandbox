@@ -40,16 +40,12 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 function reverse(x: number): number {
   let rev=0;
-  let copy = x;
 
-  // reverse
-  while(copy != 0){
-    let digit = copy % 10;
-    rev = rev*10+digit;
-    copy = ~~(copy/10);
+  while(x !== 0){
+    rev = rev*10 + x % 10;
+    x = ~~(x/10);
   }
 
-  // check if its outside 32 bit range
   return  rev > (Math.pow(2, 31) - 1) || rev < (Math.pow(2, 31) * -1)
       ? 0
       : rev;

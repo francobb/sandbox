@@ -58,16 +58,20 @@ function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | nul
   let head = beforeHead;
   let carryOver = 0;
 
-  while( /*(l1 || l2)?.next ||*/ (l1 || l2)?.val >= 0 || carryOver ) {
-    let sum = carryOver;
-    if (l1?.val) sum += l1.val;
-    if (l2?.val) sum += l2.val;
+  while( (l1 || l2)?.val >= 0 || carryOver ) {
+    let sum = carryOver; // set current sum to carryOver
 
-    carryOver = sum >= 10 ? 1 : 0;
-    head.next = new ListNode(sum % 10);
+    // if (l1?.val) sum += l1.val; // check for val in left
+    // if (l2?.val) sum += l2.val; // check for val in right
+
+    sum += (l1?.val || 0) + (l2?.val || 0)
+
+    carryOver = sum >= 10 ? 1 : 0; // do we have carryover from sum
+    head.next = new ListNode(sum % 10); // set the total
 
     l1 = l1?.next;
     l2 = l2?.next;
+
     head = head.next;
   }
 

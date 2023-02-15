@@ -28,6 +28,7 @@
 function threeSum(nums: number[]): number[][] {
   if (nums.length < 3) return []
   nums.sort((a, b) => a - b);
+
   let finalArr = [];
   for (let i = 0; i < nums.length; i++) {
     let [leftP, rightP] = [i+1, nums.length-1]
@@ -50,7 +51,6 @@ function threeSum(nums: number[]): number[][] {
         rightP--;
       }
     }
-
   }
   console.log({finalArr});
   return finalArr;

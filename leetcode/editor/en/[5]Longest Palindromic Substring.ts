@@ -43,7 +43,9 @@ function longestPalindrome(s: string): string {
   for (let i = 0; i < s.length; i++) {
     let len1 = expandFromCenter(s, i, i);
     let len2 = expandFromCenter(s, i, i+1);
+
     let len = Math.max(len1, len2);
+
     if (len > end - start) {
       start = i - ((len-1)/2);
       end = i + (len/2)

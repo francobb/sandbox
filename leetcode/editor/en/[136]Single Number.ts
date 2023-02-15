@@ -32,8 +32,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function singleNumber(nums: number[]): number {
-  // let trackerObj = new Object();
-  let trackerObj = {};
+  let trackerObj = {}; // new Object();
   nums.forEach((num, idx) => {
     // if this num exists in the obj increment the count;
     if (trackerObj[num]) trackerObj[num]++
@@ -41,6 +40,10 @@ function singleNumber(nums: number[]): number {
     else if (!trackerObj[num]) trackerObj[num] = 1
   })
 
-  return +Object.keys(trackerObj).find((k) => trackerObj[k] === 1);
+  // return +Object.keys(trackerObj).find((k) => trackerObj[k] === 1);
+
+  return nums.reduce((prev, curr) => {
+    return prev ^ curr;
+  }, 0);
 };
 //leetcode submit region end(Prohibit modification and deletion)

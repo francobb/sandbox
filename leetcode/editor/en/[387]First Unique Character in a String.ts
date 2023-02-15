@@ -29,6 +29,7 @@
 
 function firstUniqChar(s: string): number {
   let set = new Set();
+
   for (let i = 0; i < s.length; i++) {
     let current=s[i];
 

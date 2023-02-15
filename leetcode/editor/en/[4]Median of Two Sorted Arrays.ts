@@ -65,7 +65,9 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
         j = 0,
         counter = 0,
         arr: number[] = [];
+
     while (i < l1 || j < l2) {
+        // compare values in each
         if (j === l2 || nums1[i] < nums2[j]) {
             arr[counter] = nums1[i];
             ++i;
@@ -73,6 +75,7 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
             arr[counter] = nums2[j];
             ++j;
         }
+
         ++counter;
         if (counter > (l1 + l2) / 2) {
             if (isEven) {
@@ -82,8 +85,10 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
             }
         }
     }
+
     return 0;
 };
+
 findMedianSortedArrays([1,2], [3,4])
 //leetcode submit region end(Prohibit modification and deletion)
 

@@ -49,12 +49,8 @@
  Do not return anything, modify nums in-place instead.
  */
 function rotate(nums: number[], k: number): void {
-  // take last k elements and unshift them to the front
-  nums.unshift(...nums.splice(-(k % nums.length)))
-
-  // move last element to the front of the array k times.
-  for (let i = 0; i < k; i++) {
-    nums.unshift(...nums.splice(nums.length-1, 1))
-  }
+  const rotations = k > nums.length ? k % nums.length : k;
+  let sa = nums.splice(-rotations);
+  nums.unshift(...sa);
 };
 //leetcode submit region end(Prohibit modification and deletion)
