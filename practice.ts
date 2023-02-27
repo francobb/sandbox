@@ -6,7 +6,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
    * */
   {
     /**
-     * [1] two_sum ✅
+     * [1] two sum ✅
      *
      * */
     {
@@ -487,6 +487,47 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
       // )(  [2,2])
       // )(  [37,62,43,27,12,66,36,18,39,54,61,65,47,32,23,2,46,8,4,24,29,38,63,39,25,11,45,28,44,52,15,30,21,7,57,49,1,59,58,14,9,40,3,42,56,31,20,41,22,50,13,33,6,10,16,64,53,51,19,17,48,26,34,60,35,5])
       // )(  [33,86,39,20,22,99,75,1,31,58,35,13,48,66,80,82,94,14,50,93,43,63,98,95,8,70,44,68,74,17,59,36,5,23,7,69,3,21,30,92,78,73,77,54,47,42,40,34,64,11,51,4,57,15,16,28,12,29,62,4,91,18,83,45,38,56,2,84,27,6,41,61,88,52,71,90,67,79,76,24,37,96,19,97,53,26,87,49,9,85,32,72,10,89,55,46,81,65,60])
+    }
+
+    /**
+     *
+     * [724] Find Pivot Index
+     *
+     **/
+    {
+      function pivotIndex(nums: number[]): number {
+
+        for (let idx = 0; idx < nums.length; idx++) {
+          let lf = nums.slice(0, idx).reduce((a,b) => a+b, 0)
+          let rsv = nums.slice(idx + 1).reduce((a,b) => a+b, 0);
+
+          if ( lf === rsv) {
+            return idx;
+          }
+        }
+        return -1
+      }
+      const pivotIdx = (nums: number[]): number => {
+        let leftSum: number = 0;
+        let sum: number = 0;
+
+        // calc total sum of array
+        sum = nums.reduce((a, b) => a + b)
+
+        // loop through array
+        for (let i = 0; i < nums.length; i++) {
+          // found pivot
+          if (leftSum === sum - leftSum - nums[i]) {
+            return i;
+          }
+          // add values on the left
+          leftSum += nums[i]
+        }
+
+        return -1;
+      }
+
+      pivotIndex([-1,-1,-1,-1,0,0])
     }
 
     /**
