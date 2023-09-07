@@ -58,30 +58,26 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-    const l1 = nums1.length,
-        l2 = nums2.length;
+    const l1 = nums1.length, l2 = nums2.length;
     const isEven = (l1 + l2) % 2 === 0;
-    let i = 0,
-        j = 0,
-        counter = 0,
-        arr: number[] = [];
+    const arr: number[] = []
+    let counter = 0; // counter
+    let i = 0, j = 0;
 
-    while (i < l1 || j < l2) {
-        // compare values in each
+    while(i < l1 || j < l2) {
         if (j === l2 || nums1[i] < nums2[j]) {
-            arr[counter] = nums1[i];
-            ++i;
+            arr[counter++] = nums1[i];
+            i++
         } else {
-            arr[counter] = nums2[j];
-            ++j;
+            arr[counter++] = nums2[j];
+            j++;
         }
 
-        ++counter;
         if (counter > (l1 + l2) / 2) {
             if (isEven) {
-                return (arr[arr.length - 2] + arr[arr.length - 1]) / 2.0;
+                return (arr[arr.length -2] + arr[arr.length - 1])/2.0;
             } else {
-                return arr[arr.length - 1];
+                return arr[arr.length -1]
             }
         }
     }

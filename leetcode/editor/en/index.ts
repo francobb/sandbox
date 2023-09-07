@@ -71,12 +71,15 @@ export let treeNode = new TreeNode(
     new TreeNode(9, null, new TreeNode(5, new TreeNode(8), null)),
     new TreeNode(2, null, null)
   ),
-  new TreeNode(1, null, new TreeNode(4, null, null))
-);
+  new TreeNode(1, null, new TreeNode(4, null, null)));
 
-
-let l1 = [7, 3, 4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null)
-let l2 = [6, 5, 4].reduce((acc, val) => new ListNode(val, acc as undefined)as any, null)
+const ll0 = new ListNode(8)
+const ll2 = new ListNode(5, ll0)
+const ll3 = new ListNode(3, ll2)
+export const ll1 = new ListNode(7, ll3);
+export const ll4 = new ListNode(9, new ListNode(9, new ListNode(2)));
+export const l1 = [7, 3, 4].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null)
+export const l2 = [6, 5, 4].reduce((acc, val) => new ListNode(val, acc as undefined)as any, null)
 
 export const l1a = [9, 9, 9, 9, 9, 9, 9].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null)
 export const l1b = [9, 9, 9, 9].reduce((acc, val) => new ListNode(val, acc as undefined) as any, null)
