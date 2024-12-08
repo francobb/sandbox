@@ -1,15 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel">
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Component Catalog</title>
+    <link rel="stylesheet" href="./style.css">
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-    <a href="Progress Steps/index.html"> Progress Steps</a>
-    <a href="Expanding Cards/index.html"> Expanding Cards</a>
-    <a href="UI Card/index.html"> UI Card</a>
-    <a href="Dual Vertical Slider/index.html"> Dual Vert Slider</a>
+<body class="bg-gray-50">
+<nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-xl font-semibold text-gray-900">UI Component Catalog</h1>
+            <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                <label for="searchInput"></label><input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search components..."
+                        class="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex space-x-4 mb-6" id="categoryButtons">
+        <!-- Categories will be inserted here by JavaScript -->
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="componentsGrid">
+        <!-- Components will be inserted here by JavaScript -->
+    </div>
+</div>
+
+<!-- Component Card Template -->
+<template id="componentTemplate">
+    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900"></h3>
+                <span class="px-2 py-1 text-sm bg-gray-100 text-gray-600 rounded category-tag"></span>
+            </div>
+            <div class="preview-container h-16 rounded flex items-center justify-center"></div>
+            <p class="mt-4 text-gray-600 description"></p>
+
+            <div class="mt-4 flex flex-col space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-500">Component Files:</span>
+                    <button class="preview-btn flex items-center text-blue-500 hover:text-blue-600">
+                        <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                        Live Preview
+                    </button>
+                </div>
+                <div class="files-container">
+                    <!-- File links will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <button class="code-toggle mt-4 flex items-center text-blue-500 hover:text-blue-600">
+                <i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i>
+                View Code
+            </button>
+            <div class="code-preview hidden mt-4 p-4 bg-gray-50 rounded">
+                <pre class="text-sm text-gray-700"></pre>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script src="./components.js"></script>
+<script src="./home.js"></script>
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+</script>
 </body>
 </html>
