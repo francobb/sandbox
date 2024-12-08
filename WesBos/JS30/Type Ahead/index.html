@@ -26,7 +26,7 @@ function findRegexMatches(input, cts){
     return cts.filter(l => {
         let rgx = new RegExp(input,'gi')
         return l.city.match(rgx) || l.state.match(rgx)
-        // const regex = new RegExp(input, 'gi');
+        // const regex = new RegExp(input.sh, 'gi');
         // return l.city.match(regex) || l.state.match(regex)
     })
 
