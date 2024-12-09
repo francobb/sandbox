@@ -29,7 +29,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
     /**
      *
-     * [4] median of two sorted
+     * [4] median of two sorted ✅
      *
      **/
     {
@@ -93,7 +93,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
     /**
      *
-     * [15] 3_sum
+     * [15] 3_sum ✅
      *
      **/
     {
@@ -350,8 +350,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
      */
     {
       (
-
-          function single_number(ary: number[]): number {
+         function single_number(ary: number[]): number {
             // let trackerObj = new Object();
             let output = ary[0];
             let scout = [output];
@@ -363,7 +362,6 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
             return output;
           }
-
       )([4, 1, 2, 1, 2])
       // )([2,2,1]));
       // )([1]));
@@ -612,22 +610,24 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
           }
           return count;
         }
+        // way 2;
+        {
+          let set = new Map<string, number>();
+          let max = 0;
 
-        let set = new Map<string, number>();
-        let max = 0;
+          for (let lp = 0, rp = 0; rp < s.length; rp++) {
+            let char = s[rp];
 
-        for (let lp = 0, rp = 0; rp < s.length; rp++){
-          let char = s[rp];
+            if (set.has(char) && set.get(char) >= lp) {
+              lp = set.get(char) + 1;
+            }
 
-          if (set.has(char) && set.get(char) >= lp) {
-            lp = set.get(char) + 1;
+            set.set(char, rp);
+            max = Math.max(max, rp - lp + 1)
           }
 
-          set.set(char, rp);
-          max = Math.max(max, rp-lp+1)
+          return max;
         }
-
-        return max;
       })
       ("abcabcbb");
       // ("dvdf")
@@ -635,7 +635,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
-     * [7] Reverse Integer
+     * [7] Reverse Integer ✅
      */
     {
       function reverse(x: number): number {
@@ -659,7 +659,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
     /**
      *
-     * [9] Palindrome number
+     * [9] Palindrome number ✅
      *
      **/
     {
@@ -1005,7 +1005,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
 
         let finalNum = 0;
 
-        // break string input into array to iterate over
+        // break string input.sh into array to iterate over
         const sArr = Array.from(String(s));
         // Or
         const sArr1 = [...s.split("")];
@@ -1702,35 +1702,6 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
         return Number(-1);
       })([1, 2], [3, 4]);
       // })([1, 2, 9, 10], [-1, 0, 0, 2]);
-
-      const findMedianSortedArrays = (nums1: number[], nums2: number[]): number => {
-        const l1 = nums1.length,
-          l2 = nums2.length;
-        const isEven = (l1 + l2) % 2 === 0;
-        let i = 0,
-          j = 0,
-          counter = 0,
-          arr: number[] = [];
-        while (i < l1 || j < l2) {
-          if (j === l2 || nums1[i] < nums2[j]) {
-            arr[counter] = nums1[i];
-            ++i;
-          } else {
-            arr[counter] = nums2[j];
-            ++j;
-          }
-          ++counter;
-          if (counter > (l1 + l2) / 2) {
-            if (isEven) {
-              return (arr[arr.length - 2] + arr[arr.length - 1]) / 2.0;
-            } else {
-              return arr[arr.length - 1];
-            }
-          }
-        }
-        return 0;
-      };
-
     }
 
     /**
@@ -1940,7 +1911,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./le
     }
 
     /**
-     * add Two numbers ✅
+     * [2] add Two numbers ✅
      *
      * */
     {
