@@ -27,9 +27,9 @@ const components = [
   {
     id: 3,
     name: 'Carousel UI',
-    category: 'Cards',
+    category: 'Sliders',
     description: 'Versatile card component with multiple content layouts',
-    previewClass: 'bg-green-100',
+    previewClass: 'bg-orange-100',
     files: {
       html: './Carousel UI/index.html',
       css: './Carousel UI/styles.css'
@@ -53,7 +53,7 @@ const components = [
     name: 'Hidden Search',
     category: 'Forms',
     description: 'Hidden Search widget',
-    previewClass: 'bg-orange-100',
+    previewClass: 'bg-green-100',
     files: {
       html: './Hidden Search/index.html',
       css: './Hidden Search/styles.css',
@@ -75,7 +75,7 @@ const components = [
     name: 'UI Card',
     category: 'Cards',
     description: 'UI Card with star review system',
-    previewClass: 'bg-green-100',
+    previewClass: 'bg-purple-100',
     files: {
       html: './UI Card/index.html',
       css: './UI Card/styles.css',
@@ -99,7 +99,7 @@ const components = [
     name: 'Double Tap Like',
     category: 'Cards',
     description: 'Double tap to like a picture',
-    previewClass: 'bg-blue-100',
+    previewClass: 'bg-purple-100',
     files: {
       html: './Sticky Header/index.html',
       css: './Sticky Header/styles.css',
