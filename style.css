@@ -1,18 +1,60 @@
-* {
-    box-sizing: border-box;
-    background-color: #7d5fff;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/** {*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*body {*/
+/*  font-family: 'Roboto', sans-serif;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  height: 100vh;*/
+/*  overflow: hidden;*/
+/*  margin: 0;*/
+/*}*/
+
+.component-preview {
+  transition: all 0.3s ease;
 }
 
-body {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.file-link {
+  transition: all 0.2s ease;
 }
 
-.black {
-    background-color: black;
-    color: white;
+.file-link:hover {
+  transform: translateX(2px);
+}
+
+.code-preview {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.code-preview.expanded {
+  max-height: 500px;
+}
+
+/* Animation for component hover */
+.preview-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.preview-container:hover::after {
+  opacity: 1;
 }
