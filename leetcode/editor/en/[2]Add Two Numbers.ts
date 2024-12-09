@@ -76,5 +76,5 @@ function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | nul
   }
 
   return beforeHead.next;
-};
+}
 //leetcode submit region end(Prohibit modification and deletion)

@@ -15,7 +15,7 @@
 //Output: [1,2,3,7,8,11,12,9,10,4,5,6]
 //Explanation:
 //
-//The multilevel linked list in the input is as follows:
+//The multilevel linked list in the input.sh is as follows:
 //
 //
 //
@@ -31,7 +31,7 @@
 //Output: [1,3,2]
 //Explanation:
 //
-//The input multilevel linked list is as follows:
+//The input.sh multilevel linked list is as follows:
 //
 //  1---2---NULL
 //  |

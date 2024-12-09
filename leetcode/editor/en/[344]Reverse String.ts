@@ -1,4 +1,4 @@
-//Write a function that reverses a string. The input string is given as an 
+//Write a function that reverses a string. The input.sh string is given as an
 //array of characters s. 
 //
 // 
@@ -19,7 +19,7 @@
 //
 // 
 // Follow up: Do not allocate extra space for another array. You must do this 
-//by modifying the input array in-place with O(1) extra memory. 
+//by modifying the input.sh array in-place with O(1) extra memory.
 // Related Topics Two Pointers String Recursion 👍 2870 👎 824
 
 

@@ -1,5 +1,5 @@
 function productExceptSelf(nums: number[]): number[] {
-    // output[0] has to equal input[]
+    // output[0] has to equal input.sh[]
     let output:number[] = [];
 
     // for (let i=0; i < nums.length; i++) {;

@@ -85,7 +85,7 @@ function romanToInt(s: string): number {
   // create map of conversion
   let finalNum = 0;
 
-  // break string input into array to iterate over
+  // break string input.sh into array to iterate over
   const sArr = Array.from(String(s));
   // Or
   const sArr1 = [...s.split("")];
