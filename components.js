@@ -7,8 +7,8 @@ const components = [
     previewClass: 'bg-blue-100',
     files: {
       html: './Progress Steps/index.html',
-      css: './Progress Steps/styles.css',
-      js: './Progress Steps/progress-steps/script.js'
+      css: './Progress Steps/style.css',
+      js: './Progress Steps/script.js'
     }
   },
   {
@@ -19,7 +19,7 @@ const components = [
     previewClass: 'bg-purple-100',
     files: {
       html: './Expanding Cards/index.html',
-      css: './Expanding Cards/styles.css',
+      css: './Expanding Cards/style.css',
       js: './Expanding Cards/script.js'
     },
     imagesDir: './Expanding Cards/imgs' // Add this line
@@ -32,7 +32,7 @@ const components = [
     previewClass: 'bg-orange-100',
     files: {
       html: './Carousel UI/index.html',
-      css: './Carousel UI/styles.css'
+      css: './Carousel UI/style.css'
     }
   },
   {
@@ -43,7 +43,7 @@ const components = [
     previewClass: 'bg-orange-100',
     files: {
       html: './Dual Vertical Slider/index.html',
-      css: './Dual Vertical Slider/styles.css',
+      css: './Dual Vertical Slider/style.css',
       js: './Dual Vertical Slider/script.js'
     },
     imagesDir: './Dual Vertical Slider/images' // Add this line
@@ -56,7 +56,7 @@ const components = [
     previewClass: 'bg-green-100',
     files: {
       html: './Hidden Search/index.html',
-      css: './Hidden Search/styles.css',
+      css: './Hidden Search/style.css',
     },
   },
   {
@@ -67,7 +67,7 @@ const components = [
     previewClass: 'bg-blue-100',
     files: {
       html: './Rotating_Navigation/index.html',
-      css: './Rotating_Navigation/styles.css',
+      css: './Rotating_Navigation/style.css',
     },
   },
   {
@@ -78,7 +78,7 @@ const components = [
     previewClass: 'bg-purple-100',
     files: {
       html: './UI Card/index.html',
-      css: './UI Card/styles.css',
+      css: './UI Card/style.css',
       js: './UI Card/index.js'
     },
     imagesDir: './UI Card/images' // Add this line
@@ -91,7 +91,7 @@ const components = [
     previewClass: 'bg-purple-100',
     files: {
       html: './Quiz UI/index.html',
-      css: './Quiz UI/styles.css',
+      css: './Quiz UI/style.css',
     },
   },
   {
@@ -102,7 +102,7 @@ const components = [
     previewClass: 'bg-purple-100',
     files: {
       html: './Sticky Header/index.html',
-      css: './Sticky Header/styles.css',
+      css: './Sticky Header/style.css',
     },
   }
 ];

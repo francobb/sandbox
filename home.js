@@ -46,9 +46,10 @@ function updateCategoryButtons() {
 }
 
 // Render component cards
-function renderComponents() {
+// Render component cards
+async function renderComponents() {
   const grid = document.getElementById('componentsGrid');
-  grid.innerHTML = '';
+  grid.innerHTML = ''; // Clear previous components
 
   const filteredComponents = components.filter(component => {
     const matchesCategory = selectedCategory === 'All' || component.category === selectedCategory;
@@ -64,8 +65,7 @@ function renderComponents() {
     clone.querySelector('h3').textContent = component.name;
     clone.querySelector('.category-tag').textContent = component.category;
     clone.querySelector('.description').textContent = component.description;
-    clone.querySelector('.preview-container').className =
-      `preview-container h-16 rounded flex items-center justify-center ${component.previewClass}`;
+    clone.querySelector('.preview-container').className = `preview-container h-16 rounded flex items-center justify-center ${component.previewClass}`;
     clone.querySelector('.preview-container').textContent = `${component.name} Preview`;
 
     // Add file links
@@ -84,7 +84,9 @@ function renderComponents() {
                 <i data-lucide="external-link" class="w-4 h-4 text-gray-400"></i>
             `;
       filesContainer.appendChild(link);
+      lucide.createIcons(); // Call lucide.createIcons after adding each icon
     });
+
 
     // Setup preview button
     const previewBtn = clone.querySelector('.preview-btn');
@@ -95,18 +97,41 @@ function renderComponents() {
     // Setup code toggle
     const codeToggle = clone.querySelector('.code-toggle');
     const codePreview = clone.querySelector('.code-preview');
-    codeToggle.addEventListener('click', () => {
+    const preElement = codePreview.querySelector('pre'); // Get the <pre> element
+
+    codeToggle.addEventListener('click', async () => {
       const isExpanded = codePreview.classList.contains('expanded');
       codePreview.classList.toggle('hidden');
       codePreview.classList.toggle('expanded');
 
-      const icon = codeToggle.querySelector('i');
-      icon.dataset.lucide = isExpanded ? 'chevron-right' : 'chevron-down';
+      // Toggle icon using innerHTML (more robust than manipulating dataset directly)
       codeToggle.innerHTML = `
                 <i data-lucide="${isExpanded ? 'chevron-right' : 'chevron-down'}" class="w-4 h-4 mr-1"></i>
                 ${isExpanded ? 'View Code' : 'Hide Code'}
             `;
       lucide.createIcons();
+
+      if (!codePreview.dataset.codeLoaded) {
+        try {
+          let allCode = '';
+          for (const fileType in component.files) {
+            if (component.files.hasOwnProperty(fileType)) {
+              const filePath = component.files[fileType];
+              const response = await fetch(filePath);
+              if (!response.ok) {
+                throw new Error(`Failed to fetch ${fileType} file: ${response.status} ${response.statusText}`);
+              }
+              const code = await response.text();
+              allCode += `// ${fileType.toUpperCase()}:\n${code}\n\n`;
+            }
+          }
+          preElement.textContent = allCode;
+          codePreview.dataset.codeLoaded = 'true'; // Mark code as loaded
+        } catch (error) {
+          preElement.textContent = `Error loading code: ${error.message}`;
+          console.error("Error fetching component files:", error);
+        }
+      }
     });
 
     grid.appendChild(clone);
