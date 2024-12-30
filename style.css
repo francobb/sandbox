@@ -58,3 +58,24 @@
 .preview-container:hover::after {
   opacity: 1;
 }
+
+@media (max-width: 600px) {
+  .flex-col-reverse-sm {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 355px) {
+  .max-w-7xl .px-4 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .flex-col-reverse-sm .relative {
+    width: 100%;
+  }
+
+  .flex-col-reverse-sm .relative input {
+    width: 100%;
+  }
+}
