@@ -1,4 +1,4 @@
-import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./leetcode/editor/en";
+import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./editor/en";
 
   /**
    * [ARRAY]
