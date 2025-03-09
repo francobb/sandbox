@@ -1,6 +1,7 @@
 {
   "name": "sandbox",
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "watch": "npx nodemon ./sandbox.ts"
   },
