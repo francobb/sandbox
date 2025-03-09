@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/** {*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*body {*/
+/*  font-family: 'Roboto', sans-serif;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  height: 100vh;*/
+/*  overflow: hidden;*/
+/*  margin: 0;*/
+/*}*/
+
+.component-preview {
+  transition: all 0.3s ease;
+}
+
+.file-link {
+  transition: all 0.2s ease;
+}
+
+.file-link:hover {
+  transform: translateX(2px);
+}
+
+.code-preview {
+  max-height: 200px; /* Set a maximum height */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  /* ... other styles ... */
+}
+
+.code-preview.expanded {
+  max-height: 500px; /* Or any appropriate height for expanded state */
+  overflow-y: auto;  /* Maintain scrolling in expanded state */
+}
+
+.code-preview pre {
+  white-space: pre-wrap; /* Allow long lines to wrap */
+  word-wrap: break-word;   /* Break long words if necessary */
+}
+/* Animation for component hover */
+.preview-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.preview-container:hover::after {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .flex-col-reverse-sm {
+    flex-direction: column-reverse;
+  }
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*padding: 1rem 2rem;*/
+}
+
+/*@media (max-width: 380px) {*/
+/*  .max-w-7xl .px-4 {*/
+/*    padding-left: 2rem;*/
+/*    padding-right: 2rem;*/
+/*  }*/
+
+/*  .flex-col-reverse-sm .relative {*/
+/*    width: 100%;*/
+/*  }*/
+
+/*  .flex-col-reverse-sm .relative input {*/
+/*    width: 100%;*/
+/*  }*/
+/*}*/
+
+@media (max-width: 400px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flex-col-reverse-sm {
+    flex-direction: column-reverse;
+  }
+
+  .flex-col-reverse-sm .logo,
+  .flex-col-reverse-sm .search-bar {
+    width: 100%;
+    margin-bottom: 1rem; /* Add some space between logo and search bar */
+  }
+
+    .max-w-7xl .px-4 {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .flex-col-reverse-sm .relative {
+      width: 100%;
+    }
+
+    .flex-col-reverse-sm .relative input {
+      width: 100%;
+    }
+}
+
