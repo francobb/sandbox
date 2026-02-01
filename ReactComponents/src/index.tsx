@@ -1,20 +1,21 @@
 import { render } from 'preact';
 import { LocationProvider, Router, Route } from 'preact-iso';
 
-import { Header } from './components/Header.jsx';
-import { Home } from './pages/Home/index.jsx';
+import { Story } from './pages/Story';
+import {Practice} from './pages/Practice'
+import Nested from './pages/Nested/NestedCheckbox'
 import { NotFound } from './pages/_404.jsx';
 import './style.css';
 
 export function App() {
 	return (
 		<LocationProvider>
-			<main>
 				<Router>
-					<Route path="/" component={Home} />
+					<Route path="/" component={Story} />
+					<Route path="/practice" component={Practice} />
+					<Route path="/nested" component={Nested} />
 					<Route default component={NotFound} />
 				</Router>
-			</main>
 		</LocationProvider>
 	);
 }
