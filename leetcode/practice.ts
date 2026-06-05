@@ -100,7 +100,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./ed
       (
           (nums: number[]): number[][] => {
             nums.sort((a,b) => a - b);
-            let finalArr = [];
+            let finalArr: number[][] = [];
             for (let i = 0; i < nums.length; i++) {
               if (i > 0 && nums[i] == nums[i -1]) continue
               let leftP = i+1, rightP = nums.length-1;
@@ -113,7 +113,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./ed
                 } else if( sum > target) {
                   rightP--;
                 } else {
-                  finalArr.push(nums[i], nums[leftP], nums[rightP]);
+                  finalArr.push([nums[i], nums[leftP], nums[rightP]]);
                   // skip duplicates
                   while(nums[leftP]=== nums[leftP+1]) leftP++;
                   while(nums[rightP]=== nums[rightP-1]) rightP--;
@@ -493,7 +493,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./ed
      *
      **/
     {
-      function pivotIndex(nums: number[]): number {
+      const pivotIndex = (nums: number[]): number => {
 
         for (let idx = 0; idx < nums.length; idx++) {
           let lf = nums.slice(0, idx).reduce((a,b) => a+b, 0)
@@ -638,7 +638,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./ed
      * [7] Reverse Integer ✅
      */
     {
-      function reverse(x: number): number {
+      const reverse = (x: number): number => {
         let rev=0;
         let copy = x;
 
@@ -683,7 +683,7 @@ import { ListNode, Node, simpleNode, SimpleNode, treeNode, TreeNode } from "./ed
      * [14] Longest Common Prefix
      */
     {
-        function longestCommonPrefix(strs: string[]): string {
+        const longestCommonPrefix = (strs: string[]): string => {
           if (strs.length == 0) return ""
 
           let prefix = strs[0]; // compare to first element in string

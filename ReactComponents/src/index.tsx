@@ -11,13 +11,14 @@ export function App() {
 	return (
 		<LocationProvider>
 				<Router>
-					<Route path="/" component={Story} />
+					<Route path="/" component={() => (<div>Main Page</div>)} />
 					<Route path="/practice" component={Practice} />
 					<Route path="/nested" component={Nested} />
+					<Route path="/stories" component={Story} />
 					<Route default component={NotFound} />
 				</Router>
 		</LocationProvider>
 	);
 }
 
-render(<App />, document.getElementById('app'));
+render(<App />, document.body);

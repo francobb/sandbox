@@ -53,8 +53,9 @@ export function Story() {
     }
   }
 
-  function setModalImage(img) {
+  function setModalImage(img: HTMLImageElement) {
     const modal = document.querySelector('.image-container');
+    if (!modal) return;
     modal.innerHTML = `<img src="${img.src}" alt="${img.alt}" class="modal-image"/>`;
   }
 
@@ -97,7 +98,7 @@ export function Story() {
         clearInterval(updateProgressBar);
         const nextStoryIndex = (currentStoryIndex + 1) % stories.length;
         if (nextStoryIndex === 0) {
-          document.querySelector('.modal').remove()
+          document.querySelector('.modal')?.remove()
           return;
         }
         moveToNextStory(progressBarContainer, stories, nextStoryIndex, img);

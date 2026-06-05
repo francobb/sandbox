@@ -1,13 +1,12 @@
 // ============================================================================
 // NODE.JS INTERVIEW PRACTICE PROBLEMS
 // ============================================================================
-// Run with: ts-node sandbox.ts
+// Run with: ts-node node_practice.ts
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { EventEmitter } from 'events';
+import * as fs from 'node:fs';
+import {EventEmitter} from 'node:events';
 import * as http from 'http';
-import { Transform } from 'stream';
+import {Transform} from 'stream';
 
 /*
  * ============================================================================
@@ -21,7 +20,7 @@ import { Transform } from 'stream';
 
 function readFiles(filePaths: string[], callback: (err: Error | null, contents?: string[]) => void) {
   let files = filePaths.length;
-  if(files === 0) return callback(new Error("no files to parse"));
+  if (files === 0) return callback(new Error("no files to parse"));
 
   let hasError = false;
   let contents = Array(files);
@@ -29,25 +28,51 @@ function readFiles(filePaths: string[], callback: (err: Error | null, contents?:
 
   filePaths.forEach((path, index) => {
     fs.readFile(path, (err, data) => {
-      if(hasError) return;
+      if (hasError) return;
 
       // If ANY file fails, callback with the error immediately.
-      if(err) {
+      if (err) {
         hasError = true;
-        callback(err);
+        return callback(err);
       }
 
       contents[index] = data;
       count++;
 
-      if(count === files) {
+      if (count === files) {
         return callback(null, contents);
       }
     })
   })
 }
+/*
+ * ============================================================================
+ * Problem 1A Asynchronous Control Flow (Asynchronous Execution)
+ * ============================================================================
+ * Task: Implement `readFiles` to read an array of file paths.
+ * - Return the contents in any order of the input paths.
+ * - If ANY file fails, callback with the error immediately.
+ * - Use fs.promises or async/await.
+ */
 
+async function readFilesAsync(filePaths: string[], callback: (err: Error | null, contents?: string[]) => void) {
+  let files = filePaths.length;
+  if(files === 0) return callback(new Error("no files to parse"));
 
+  let contents = Array(files);
+  try {
+
+   contents = await Promise.all(
+        filePaths.map(path => {
+          return fs.promises.readFile(path)
+        })
+    )
+    return callback(null, contents);
+
+  } catch (err) {
+    callback(new Error("Failed to read files"));
+  }
+}
 /*
  * ============================================================================
  * Problem 2: Event Emitters
@@ -109,7 +134,6 @@ const server = http.createServer((req, res) => {
   res.end('404')
 });
 
-
 /*
  * ============================================================================
  * Problem 4: Streams (Transform)
@@ -123,10 +147,13 @@ const server = http.createServer((req, res) => {
 class UpperCaseStream extends Transform {
   _transform(chunk: any, encoding: string, callback: Function) {
     // TODO: Implement the transformation logic
-    
+    const uppercasedChunk = chunk.toString().toUpperCase(); // convert chunk to string
+    this.push(uppercasedChunk); // push chunk
+
+    // 4. Signal that this chunk is processed
+    callback();
   }
 }
-
 
 /*
  * ============================================================================
@@ -142,7 +169,20 @@ class UpperCaseStream extends Transform {
 type Middleware = (req: any, res: any, next: () => void) => void;
 
 function runMiddlewares(req: any, res: any, middlewares: Middleware[]) {
-  // TODO: Implement the recursion/loop to run middlewares in order
+  let count = 0;
+  
+  const next = () => {
+      const mw = middlewares[count];
+      count++;
+
+      mw(req, res, next)
+      
+      if(count <= middlewares.length) {
+        return;
+      }
+  }
+
+  next()
 }
 
 // ============================================================================
